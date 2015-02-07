@@ -1,3 +1,4 @@
 *ant-build
 *.pyc
-
+.project
+.pydevproject
