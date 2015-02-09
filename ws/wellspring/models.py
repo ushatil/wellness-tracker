@@ -20,7 +20,7 @@ class VestSubSection(models.Model):
     subsection_name: the unique sub-section
     '''
     subsection_name = models.CharField(primary_key = True, max_length=50, db_column="SUBSECTION_NAME", unique=True)
-    section_name = models.ForeignKey(VestSection, db_column="VEST_SECTION_NAME")
+    vest_section = models.ForeignKey(VestSection, db_column="VEST_SECTION_NAME")
     
 class Value(models.Model):
     id = models.AutoField(primary_key=True, db_column="ID")
@@ -37,11 +37,13 @@ class Report(models.Model):
     
 class ReportSection(models.Model):
     id = models.AutoField(primary_key=True, db_column="ID")
+    report = models.ForeignKey(Report, db_column="REPORT_ID")
     vest_section = models.ForeignKey(VestSection, db_column="VEST_SECTION")
     section_rating = models.IntegerField(db_column="SECTION_RATING")
     
 class ReportSubSection(models.Model):
     id = models.AutoField(primary_key=True, db_column="ID")
+    report_section = models.ForeignKey(ReportSection, db_column="REPORT_SECTION_ID")
     subsection_rating = models.FloatField(db_column = "SUBESCTION_RATING")
     vest_subsection = models.ForeignKey(VestSubSection, db_column = "VEST_SUBSECTION")
     
