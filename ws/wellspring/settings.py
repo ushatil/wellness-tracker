@@ -111,7 +111,7 @@ LOGGING = {
         'django': {
             'handlers':['console'],
             'propagate': True,
-            'level':'CRITICAL',
+            'level':'ERROR',
         },
         'wellspring': {
             'handlers': ['console'],

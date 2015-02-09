@@ -27,10 +27,10 @@ def get_value_by_id(device_uuid, value_id):
     value = Value.objects.get(id = value_id)
     
     if value.device.device_uuid != device_uuid:
-        LOGGER.critical("Value access attempted with incorrect UUID!")
-        LOGGER.critical("Value ID: " + str(value_id))
-        LOGGER.critical("Value owned by UUID: " + value.device.device_uuid)
-        LOGGER.critical("Access attempted by UUID: " + device_uuid)
+        LOGGER.error("Value access attempted with incorrect UUID!")
+        LOGGER.error("Value ID: " + str(value_id))
+        LOGGER.error("Value owned by UUID: " + value.device.device_uuid)
+        LOGGER.error("Access attempted by UUID: " + device_uuid)
         raise PermissionDenied()
     
     return value
