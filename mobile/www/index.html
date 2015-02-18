@@ -25,17 +25,195 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/wellspring.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+    
+    
+    <!-- 
+    DASHBOARD
+     -->
+	<div id="dashboard" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Dashboard</h1>
+		</div>
+		<div data-role="content">
+			<p>Dashboard Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade" data-transition="fade" class="ui-btn-active ui-state-persist">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 
+    STATS
+     -->
+   	<div id="statistics" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Statistics</h1>
+		</div>
+		<div data-role="content">
+			<p>Statistics Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade" class="ui-btn-active ui-state-persist">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+     
+    <!-- 
+    REPORT
+    -->
+    
+    <div id="report-dashboard" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Report</h1>
+		</div>
+		<div data-role="content">
+			<p>Report Dashboard Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+				</ul>
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	    
+    <div id="report-lifestyle" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Lifestyle</h1>
+		</div>
+		<div data-role="content">
+			<p>Lifestyle Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+				</ul>
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>    
+	
+    <div id="report-support" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Support</h1>
+		</div>
+		<div data-role="content">
+			<p>Support Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+				</ul>
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>    
+	
+    <div id="report-equilibrium" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Equilibrium</h1>
+		</div>
+		<div data-role="content">
+			<p>Equilibrium Content</p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Equilibrium</a></li>
+				</ul>
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    
+    <!-- 
+    CONFIG
+     -->
+     
+     <div id="configure" data-role="page">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+			<h1>Settings</h1>
+		</div>
+		<div data-role="content">
+			<p>Settings Content</p>
+			<p><span id="device-uuid"></span></p>
+		</div>
+		
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade" class="ui-btn-active ui-state-persist">Config</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	        <script type="text/javascript" src="cordova.js"></script>
+	        <script type="text/javascript" src="js/lib/jquery-1.11.2.min.js"></script>
+	        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
+	        <script type="text/javascript" src="js/wellspring.js"></script>
+       
     </body>
 </html>

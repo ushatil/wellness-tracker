@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+html {
+	height: 100%;
+	width: 100%;
+}
+
+.wellspring-wrapper {
+	height: 100%;
+	width: 100%;
+}
+
+#wellspring-content-block {
+	height: 92%;
+	text-align: center;
+}
+
+#wellspring-nav-bar {
+	height: 8%;
+}
+
+.nav-bar-cell {
+	width: 25%;
+	text-align: center;
+	border: 2px solid black;
+}
+
+.full-width {
+	width: 100%;
+}
