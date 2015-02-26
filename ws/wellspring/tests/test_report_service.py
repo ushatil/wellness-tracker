@@ -2,6 +2,7 @@ from django.test import TestCase
 import datetime
 from wellspring.services import device_service, vest_service, report_service
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from wellspring.exceptions import DeviceNotRegistered
 
 sarah_uuid = "Android@SarahHTCXXX464"
 john_uuid = "IOS@JohnIPhoneXXX221"
@@ -124,18 +125,18 @@ class ReportServiceTest(TestCase):
         self.assertEqual(len(sarah_reports), 2)
         self.assertEqual(len(john_reports), 1)
         self.assertEqual(len(chen_reports), 0)
-        self.assertRaises(ObjectDoesNotExist, report_service.get_all_reports, device_uuid = wrong_uuid)
+        self.assertRaises(DeviceNotRegistered, report_service.get_all_reports, device_uuid = wrong_uuid)
         
         report = sarah_reports[0]
         self.assertEqual(report.report_rating, 2)
         for report_section in report.reportsection_set.all():
             section_name = report_section.vest_section.section_name
-            self.assertEqual(report_section.section_rating, self.initial_report_ratings[section_name][0])
+            self.assertEqual(report_section.section_rating, int(self.initial_report_ratings[section_name][0]))
             
             for report_subsection in report_section.reportsubsection_set.all():
                 subsection_name = report_subsection.vest_subsection.subsection_name
                 self.assertEqual(report_subsection.subsection_rating,
-                                 self.initial_report_ratings[section_name][1][subsection_name])
+                                 float(self.initial_report_ratings[section_name][1][subsection_name]))
     
     def test_get_report_since_date(self):
         old_report = report_service.add_report(sarah_uuid, 5, self.initial_report_ratings)

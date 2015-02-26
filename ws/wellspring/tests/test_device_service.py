@@ -1,6 +1,7 @@
 from django.test import TestCase
 from wellspring.services import device_service
 from django.core.exceptions import ObjectDoesNotExist
+from wellspring.exceptions import DeviceNotRegistered
 
 sarah_uuid = "Android@SarahHTCXXX464"
 john_uuid = "IOS@JohnIPhoneXXX221"
@@ -21,7 +22,7 @@ class DeviceServiceTest(TestCase):
         
         self.assertEqual(sarah.id, self.sarah_id)
         self.assertEqual(john.id, self.john_id)
-        self.assertRaises(ObjectDoesNotExist, device_service.get_by_device_uuid, device_uuid=wrong_uuid)
+        self.assertRaises(DeviceNotRegistered, device_service.get_by_device_uuid, device_uuid=wrong_uuid)
         
     def test_devices_found_by_id(self):
         sarah = device_service.get_by_device_id(self.sarah_id)
@@ -29,7 +30,7 @@ class DeviceServiceTest(TestCase):
         
         self.assertEqual(sarah.device_uuid, sarah_uuid)
         self.assertEqual(john.device_uuid, john_uuid)
-        self.assertRaises(ObjectDoesNotExist, device_service.get_by_device_id, id=self.wrong_id)
+        self.assertRaises(DeviceNotRegistered, device_service.get_by_device_id, id=self.wrong_id)
         
     def test_device_id_found_by_uuid(self):
         sarah_id = device_service.get_id_by_device_uuid(sarah_uuid)
@@ -37,7 +38,7 @@ class DeviceServiceTest(TestCase):
         
         self.assertEqual(sarah_id, self.sarah_id)
         self.assertEqual(john_id, self.john_id)
-        self.assertRaises(ObjectDoesNotExist, device_service.get_id_by_device_uuid, device_uuid=wrong_uuid)
+        self.assertRaises(DeviceNotRegistered, device_service.get_id_by_device_uuid, device_uuid=wrong_uuid)
         
     def test_devices_get_all(self):
         devices = device_service.get_all_devices()
@@ -51,3 +52,8 @@ class DeviceServiceTest(TestCase):
         self.assertTrue(sarah_uuid in device_uuids)
         self.assertTrue(john_uuid in device_uuids)
         self.assertFalse(wrong_uuid in device_uuids)
+        
+    def test_does_device_exist(self):
+        self.assertTrue(device_service.device_exists(sarah_uuid))
+        self.assertTrue(device_service.device_exists(john_uuid))
+        self.assertFalse(device_service.device_exists(wrong_uuid))

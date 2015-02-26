@@ -1,6 +1,7 @@
 from django.test import TestCase
 from wellspring.services import device_service, value_service, vest_service
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from wellspring.exceptions import DeviceNotRegistered
 
 sarah_uuid = "Android@SarahHTCXXX464"
 john_uuid = "IOS@JohnIPhoneXXX221"
@@ -41,7 +42,7 @@ class DeviceServiceTest(TestCase):
     def test_get_all_values_for_device(self):
         john_values = value_service.get_all_values_for_device(john_uuid)
         sarah_values = value_service.get_all_values_for_device(sarah_uuid)
-        self.assertRaises(ObjectDoesNotExist, value_service.get_all_values_for_device, device_uuid = wrong_uuid)
+        self.assertRaises(DeviceNotRegistered, value_service.get_all_values_for_device, device_uuid = wrong_uuid)
         
         sarah_value_names = [value.value_name for value in sarah_values]
         john_value_names = [value.value_name for value in john_values]
