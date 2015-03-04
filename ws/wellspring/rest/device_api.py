@@ -18,4 +18,4 @@ def device_post_handler(request, response, device_uuid, id):
     device_service.add_device(device_uuid)
     responseBody["message"] = "Device newly registered"
     response.content = jsonify(responseBody)
-    return responses
+    return response
