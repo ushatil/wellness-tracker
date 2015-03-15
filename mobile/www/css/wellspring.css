@@ -1,5 +1,35 @@
 @CHARSET "UTF-8";
 
+
+.in, .out {
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-duration: 350ms !important;
+}
+
+.sliders {
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 15%;
+    border: 1px solid black;
+    border-radius: 15px;
+    
+    background: -webkit-radial-gradient(circle, red, lime);
+	background: -o-radial-gradient(circle, red, lime);
+	background: -moz-radial-gradient(circle, red, lime);
+	background: radial-gradient(circle, red, lime);
+}
+
+.smiley-container {
+	width: 70%;
+	margin-right: 15%;
+	margin-left: 15%;
+}
+
+.smiley-group {
+	width: 100%;
+}
+
+/**
 html {
 	height: 100%;
 	width: 100%;
@@ -45,3 +75,4 @@ input[type="radio"] {
 .moodl-cell-right {
 	margin-right:12.5%;
 }
+**/

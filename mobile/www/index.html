@@ -24,9 +24,9 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <!-- <link rel="stylesheet" type="text/css" href="css/wellspring.css" /> -->
+<!--         <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/wellspring.css" />
         <title>Hello World</title>
     </head>
     <body>
@@ -42,8 +42,8 @@
 		<div data-role="content">
 			<p>Dashboard Content</p>
 			
-			<div data-role="fieldcontain">
-    			<fieldset id="dashboard-overall-group" data-type="horizontal" data-role="controlgroup">
+			<div data-role="fieldcontain" class="smiley-container">
+    			<fieldset id="dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="smiley-group">
     			
 	         		<input type="radio" name="dashboard-overall" id="dashboard-overall-radio-1" value="1" class="mood-1">
 	         		<label for="dashboard-overall-radio-1">1</label>
@@ -68,10 +68,10 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade" data-transition="fade" class="ui-btn-active ui-state-persist">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="ui-btn-active ui-state-persist">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -91,10 +91,10 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade" class="ui-btn-active ui-state-persist">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="ui-btn-active ui-state-persist">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -110,8 +110,8 @@
 		</div>
 		<div data-role="content">
 			<p>Report Dashboard Content</p>
-			<div data-role="fieldcontain">
-    			<fieldset id="report-dashboard-overall-group" data-type="horizontal" data-role="controlgroup">
+			<div data-role="fieldcontain" class="smiley-container">
+    			<fieldset id="report-dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="smiley-group">
     			
 	         		<input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-1" value="1" class="mood-1">
 	         		<label for="report-dashboard-overall-radio-1">1</label>
@@ -135,15 +135,15 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
 				</ul>
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -156,8 +156,9 @@
 		</div>
 		<div data-role="content">
 			<p>Lifestyle Content</p>
-			<div data-role="fieldcontain">
-    			<fieldset id="lifestyle-overall-group" data-type="horizontal" data-role="controlgroup">
+			<br><div id="lifestyle-sliders" class="sliders"></div><br>
+			<div data-role="fieldcontain" class="smiley-container">
+    			<fieldset id="lifestyle-overall-group" data-type="horizontal" data-role="controlgroup" class="smiley-group">
     			
 	         		<input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-1" value="1" class="mood-1">
 	         		<label for="lifestyle-overall-radio-1">1</label>
@@ -181,15 +182,15 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
 				</ul>
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -201,8 +202,9 @@
 		</div>
 		<div data-role="content">
 			<p>Support Content</p>
-			<div data-role="fieldcontain">
-    			<fieldset id="support-overall-group" data-type="horizontal" data-role="controlgroup">
+			<br><div id="support-sliders" class="sliders"></div><br>
+			<div data-role="fieldcontain" class="smiley-container">
+    			<fieldset id="support-overall-group" data-type="horizontal" data-role="controlgroup" class="smiley-group">
     			
 	         		<input type="radio" name="support-overall" id="support-overall-radio-1" value="1" class="mood-1">
 	         		<label for="support-overall-radio-1">1</label>
@@ -226,15 +228,15 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade">Equilibrium</a></li>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
 				</ul>
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -246,8 +248,9 @@
 		</div>
 		<div data-role="content">
 			<p>Equilibrium Content</p>
-			<div data-role="fieldcontain">
-    			<fieldset id="equilibrium-overall-group" data-type="horizontal" data-role="controlgroup">
+			<br><div id="equilibrium-sliders" class="sliders"></div><br>
+			<div data-role="fieldcontain" class="smiley-container">
+    			<fieldset id="equilibrium-overall-group" data-type="horizontal" data-role="controlgroup" class="smiley-group">
     			
 	         		<input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-1" value="1" class="mood-1">
 	         		<label for="equilibrium-overall-radio-1">1</label>
@@ -271,15 +274,15 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="fade">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="fade">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="fade" class="ui-btn-active ui-state-persist">Equilibrium</a></li>
+					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
+					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
+					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Equilibrium</a></li>
 				</ul>
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none">Config</a></li>
 				</ul>
 			</div>
 		</div>
@@ -295,30 +298,42 @@
 		</div>
 		<div data-role="content">
 			<p>Settings Content</p>
-			<p><span id="device-uuid"></span></p>
-			<p><span id="overall-out"></span></p>
-			<p><span id="lifestyle-out"></span></p>
-			<p><span id="support-out"></span></p>
-			<p><span id="equilibrium-out"></span></p>
+			<p>Device: <span id="device-uuid"></span></p>
+			<p>Overall: <span id="overall-out"></span></p>
+			<p>Lifestyle: <span id="lifestyle-out"></span></p>
+			<p>Support: <span id="support-out"></span></p>
+			<p>Equilibrium: <span id="equilibrium-out"></span></p>
+			<p>Diet: <span id="diet-out"></span></p>
+			<p>Exercise: <span id="exercise-out"></span></p>
+			<p>Recreation: <span id="recreation-out"></span></p>
+			<p>Meditation: <span id="meditation-out"></span></p>
+			<p>Self: <span id="self-out"></span></p>
+			<p>Work: <span id="work-out"></span></p>
+			<p>Home: <span id="home-out"></span></p>
+			<p>School: <span id="school-out"></span></p>
+			<p>Family: <span id="family-out"></span></p>
+			<p>Friends: <span id="friends-out"></span></p>
+			<p>Colleagues: <span id="colleagues-out"></span></p>
+			<p>Professionals: <span id="professionals-out"></span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="fade">Dash</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="fade">Stats</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="fade">Report</a></li>
-					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="fade" class="ui-btn-active ui-state-persist">Config</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
+					<li><a href="#configure" data-role="tab" data-icon="gear" data-transition="none" class="ui-btn-active ui-state-persist">Config</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	
-	
-	
+<!-- 			<script type="text/javascript" src="js/lib/energize-min.js"></script> -->
 	        <script type="text/javascript" src="cordova.js"></script>
 	        <script type="text/javascript" src="js/lib/jquery-1.11.2.min.js"></script>
 	        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
+			<script type="text/javascript" src="js/lib/raphael-min.js"></script>
 	        <script type="text/javascript" src="js/wellspring.js"></script>
        
     </body>
