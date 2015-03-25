@@ -1,4 +1,4 @@
-function newReport() {
+function wellspringReport(reportState) {
 	return {
 		type: "WellspringReport",
 		overall: false,
@@ -79,6 +79,39 @@ function newReport() {
 	};
 }
 
+var dummyValues = [{
+		  "type": "WellspringValue",
+		  "id": 1,
+		  "description": "I like to be healthy",
+		  "name": "health",
+		  "vestSubSection": "DIET"
+		},
+		{
+		  "type": "WellspringValue",
+		  "id": 2,
+		  "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non turpis eros. " +
+		  		"Nunc mauris dolor, rhoncus vitae eros vel, aliquet commodo arcu. Pellentesque faucibus ligula " +
+		  		"et sapien euismod tempor et ac arcu. Ut vulputate vitae justo placerat sollicitudin. Donec non " +
+		  		"pellentesque urna, vel varius enim. In hac habitasse platea dictumst. Phasellus tincidunt enim " +
+		  		"luctus imperdiet sodales.",
+		  "name": "lorem",
+		  "vestSubSection": "SELF"
+		},
+		{
+		  "type": "WellspringValue",
+		  "id": 6,
+		  "description": "Foo Bar is very important to me",
+		  "name": "foo",
+		  "vestSubSection": "SCHOOL"
+		},
+		{
+		  "type": "WellspringValue",
+		  "id": 4,
+		  "description": "It's important to me that my friends come and ask me for favors. It makes me feel reliable",
+		  "name": "favors",
+		  "vestSubSection": "FRIENDS"
+		}];
+
 function newReportState() {
 	return {
 		"OVERALL" : -1,
@@ -100,6 +133,16 @@ function newReportState() {
 	};
 }
 
+function newValue(name, description, vestSubSection) {
+	var result = {
+			"type" : "WellspringValue",
+			"description" : description,
+			"name" : name,
+			"vestSubSection" : vestSubSection
+	};
+	return result;
+}
+
 var ReportState;
 
 /***
@@ -108,16 +151,16 @@ var ReportState;
  * 
  */
 
-function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, callback){
+function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, callback, radius){
     /**
     ** Descriptor should be a list such that:
     ** descriptor[0] = vest subsection (all caps)
     ** descriptor[1] = vest subsection display name
     **/
-    var radius = 15;
     var pathWord = "M" + (outsideX - radius).toString() + "," + (outsideY - radius).toString() + "L" + (insideX - radius).toString() + "," +             (insideY - radius).toString();
 
     var path = canvas.path(pathWord);
+    var leftMargin = (5 / 100) * $(window).width();
     
     
     var startingX = (insideX - outsideX) / 2 + outsideX - radius;
@@ -139,6 +182,7 @@ function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, ca
         },
 
         onMove : function (dx, dy, x, y, event) {
+        	x = x - leftMargin;
             if ((x <= outsideX) == (insideX > outsideX)) {
                 newY = outsideY;
                 newX = outsideX;
@@ -195,7 +239,7 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
     var canvas = Raphael(container = divId, height=height, width=width);
     var midpointX = width / 2;
     var midpointY = height / 2;
-    var radius = 30;
+    var radius = 60;
     
     var topLeft;
     var topRight;
@@ -208,10 +252,10 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
         path.animate({"path" : pathWord});
     }
     
-    topLeft = drawSlider(canvas, 2*radius, 2*radius, midpointX - radius, midpointY - radius, topLeftDescriptor, callback);
-    topRight = drawSlider(canvas, width - 2*radius, 2*radius, midpointX + radius, midpointY - radius, topRightDescriptor, callback);
-    bottomLeft = drawSlider(canvas, 2*radius, height - 2*radius, midpointX - radius, midpointY + radius, bottomLeftDescriptor, callback);
-    bottomRight = drawSlider(canvas, width - 2*radius, height - 2*radius, midpointX + radius, midpointY + radius, bottomRightDescriptor, callback);
+    topLeft = drawSlider(canvas, 2*radius, 2*radius, midpointX - radius, midpointY - radius, topLeftDescriptor, callback, radius/2);
+    topRight = drawSlider(canvas, width - 2*radius, 2*radius, midpointX + radius, midpointY - radius, topRightDescriptor, callback, radius/2);
+    bottomLeft = drawSlider(canvas, 2*radius, height - 2*radius, midpointX - radius, midpointY + radius, bottomLeftDescriptor, callback, radius/2);
+    bottomRight = drawSlider(canvas, width - 2*radius, height - 2*radius, midpointX + radius, midpointY + radius, bottomRightDescriptor, callback, radius/2);
     
     path = canvas.path(polygonPathWord(topLeft, topRight, bottomLeft, bottomRight));
     path.attr({"fill" : "white", "opacity" : 0.3, "stroke-opacity" : 0});
@@ -221,6 +265,52 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
 /**
  * 
  * END RAPHAEL SCRIPT FOR SLIDERS
+ * 
+ * BEGIN VALUES SCRIPT (KNOCKOUT)
+ * 
+ */
+
+var ViewModel = function(values) {
+	   var self = this;
+	   this.values = ko.observableArray(values);
+	};
+	
+var valuesModel = new ViewModel(dummyValues);
+	
+function onValueAddSubmit() {
+	var inputsValid = true;
+	var missingFields = [];
+	if (!$('#value-add-name').val()) {
+		inputsValid = false;
+		missingFields.push('Name');
+	}
+	if (!$('#value-add-description').val()) {
+		inputsValid = false;
+		missingFields.push('Description');
+	}
+	
+	if (!inputsValid) {
+		var message = "<p>The following values were missing:</p>";
+		for (var i = 0; i < missingFields.length; i++) {
+			message += "<p>" + missingFields[i] + "</p>";
+		}
+		$('#value-add-validator-popup').html(message);
+		$('#value-add-validator-popup').popup('open', {});
+		return;
+	}
+	
+	var value = newValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val());
+	
+	/**
+	 * TODO: CHANGE TO AN AJAX CALL
+	 */
+	valuesModel.values.push(value);
+	$.mobile.navigate("#values");
+}
+	
+/**
+ * 
+ * END VALUES SCRIPT
  * 
  */
 
@@ -262,8 +352,12 @@ function onEquilibriumShow() {
 	return;
 }
 
+var valuesBound = false;
 function onValuesShow() {
-	return;
+	if (!valuesBound) {
+		ko.applyBindings(valuesModel);
+	}
+	valuesBound = true;
 }
 
 function onLifestyleCreate() {
@@ -271,11 +365,11 @@ function onLifestyleCreate() {
 }
 
 function onSupportCreate() {
-	fourSliders("support-sliders", ["FAMILY", "Family"], ["FRIENDS", "Friends"], ["COLLEAGUES", "Colleagues"], ["PROFESSIONALS", "Professional"]);
+	fourSliders("support-sliders", ["FRIENDS", "Friends"], ["FAMILY", "Family"], ["COLLEAGUES", "Colleagues"], ["PROFESSIONALS", "Professionals"]);
 }
 
 function onEquilibriumCreate() {
-	fourSliders("equilibrium-sliders", ["HOME", "Home"], ["SCHOOL", "School"], ["WORK", "Work"], ["SELF", "Self"]);
+	fourSliders("equilibrium-sliders", ["SCHOOL", "School"], ["WORK", "Work"], ["SELF", "Self"], ["HOME", "Home"]);
 }
 
 function debugOutput() {
@@ -299,6 +393,7 @@ function debugOutput() {
 
 function bindWellspringEvents() {
 	$('#dashboard').on('pageshow', onHomeDashShow);
+	$('#values').on('pageshow', onValuesShow);
 	$('#statistics').on('pageshow', onStatisticsShow);
 	$('#report-dashboard').on('pageshow', onReportDashShow);
 	$('#report-lifestyle').on('pageshow', onLifestyleShow);
@@ -308,6 +403,8 @@ function bindWellspringEvents() {
 	$('#report-lifestyle').on('pagecreate', onLifestyleCreate);
 	$('#report-support').on('pagecreate', onSupportCreate);
 	$('#report-equilibrium').on('pagecreate', onEquilibriumCreate);
+	
+	$('#value-add-submit').on('tap', onValueAddSubmit);
 	
 	$("input[name='dashboard-overall']").change(function() {
 		if ($(this).is(":checked")) {
@@ -340,7 +437,7 @@ function bindWellspringEvents() {
 	})
 	
 	// Stop-gap
-	$('#configure').on('pageshow', debugOutput);
+	$('#debug-output').on('pageshow', debugOutput);
 }
 
 var app = {
