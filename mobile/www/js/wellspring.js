@@ -270,12 +270,35 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
  * 
  */
 
+var ADD_MODE="ADD";
+var EDIT_MODE="EDIT";
+var valuesAddMode = "";
+var selectBoxInitialized=false;
+
 var ViewModel = function(values) {
 	   var self = this;
 	   this.values = ko.observableArray(values);
+	   this.showValue = function(value) {
+			$("#value-add-name").val(value["name"]);
+			$("#value-add-description").val(value["description"]);
+			$("#value-add-id").val(value["id"]);
+			$("#value-add-subsection").val(value["vestSubSection"]);
+			$("#value-add-submit").text("Save");
+			valuesAddMode = EDIT_MODE;
+		   $.mobile.navigate("#value-add");
+	   }
+	   this.deleteValue = function(value) {
+		   $("#value-delete-name").text(value["name"]);
+		   $("#value-delete-id").val(value["id"]);
+		   $.mobile.navigate("#value-delete");
+	   }
 	};
 	
 var valuesModel = new ViewModel(dummyValues);
+
+function onValueAddShow() {
+	$("#value-add-subsection").selectmenu("refresh");
+}
 	
 function onValueAddSubmit() {
 	var inputsValid = true;
@@ -299,13 +322,31 @@ function onValueAddSubmit() {
 		return;
 	}
 	
-	var value = newValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val());
+	if (valuesAddMode == ADD_MODE) {
 	
-	/**
-	 * TODO: CHANGE TO AN AJAX CALL
-	 */
-	valuesModel.values.push(value);
-	$.mobile.navigate("#values");
+		var value = newValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val());
+		
+		/**
+		 * TODO: CHANGE TO AN AJAX CALL
+		 */
+		valuesModel.values.push(value);
+		$.mobile.navigate("#values");
+	} else if (valuesAddMode == EDIT_MODE) {
+		//TODO: Edit Value
+	}
+}
+
+function onValueDeleteSubmit() {
+	//TODO: Delete Value
+}
+
+function onAddValueButtonTap() {
+	valuesAddMode=ADD_MODE;
+	$("#value-add-name").val("");
+	$("#value-add-description").val("");
+	$("#value-add-subsection").val("DIET");
+	$("#value-add-submit").text("Add");
+	$.mobile.navigate('#value-add');
 }
 	
 /**
@@ -399,12 +440,15 @@ function bindWellspringEvents() {
 	$('#report-lifestyle').on('pageshow', onLifestyleShow);
 	$('#report-support').on('pageshow', onSupportShow);
 	$('#report-equilibrium').on('pageshow', onEquilibriumShow);
+	$('#value-add').on('pageshow', onValueAddShow);
 	
 	$('#report-lifestyle').on('pagecreate', onLifestyleCreate);
 	$('#report-support').on('pagecreate', onSupportCreate);
 	$('#report-equilibrium').on('pagecreate', onEquilibriumCreate);
 	
 	$('#value-add-submit').on('tap', onValueAddSubmit);
+	$('#value-delete-submit').on('tap', onValueDeleteSubmit);
+	$('#value-add-button').on('tap', onAddValueButtonTap);
 	
 	$("input[name='dashboard-overall']").change(function() {
 		if ($(this).is(":checked")) {

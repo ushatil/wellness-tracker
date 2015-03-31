@@ -88,10 +88,12 @@
 				<li><p>#<span data-bind="text: name"></span></p>
 					<p><textarea data-bind="text: description" class="full-width" readonly></textarea></p>
 					<p><span data-bind="text: vestSubSection"></span></p>
+					<p><button data-bind="event: {tap : $parent.showValue}">Edit</button></p>
+					<p><button data-bind="event: {tap : $parent.deleteValue}">Delete</button></p>
 				</li> 
 			</ul> 
 			<br>
-			<a id = "value-add-button" href="#value-add" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Add Value</a>
+			<a id = "value-add-button" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Add Value</a>
 			
 		</div>
 		
@@ -109,7 +111,7 @@
 	
 	<div id="value-add" data-role="page" data-dialo="true">
 		<div data-role="header" data-theme="b">
-		<h1 id="value-modal-header-text">Add Value</h1>
+		<h1 id="value-add-modal-header-text">Add Value</h1>
 		</div>
 
 		<div role="main" class="ui-content">
@@ -118,6 +120,7 @@
 			
 			<label for="value-add-description">Value Description</label>
 			<textarea id="value-add-description" name="value-add-description" class="full-width"></textarea>
+			
 			
 			<label for="value-add-subsection">VEST Category</label>
 			<select id="value-add-subsection" name="value-add-subsection">
@@ -136,9 +139,28 @@
 				
 			</select>
 			
+			<input id="value-add-id" name="value-add-id" type="hidden"></input>
+			
+			
 			<a id="value-add-submit" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Add</a>
 			<div id="value-add-validator-popup" data-role="popup"></div>
 			<a id="value-add-cancel" href="#values" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Cancel</a>
+		</div>
+	</div>
+	
+	<div id="value-delete" data-role="page" data-dialo="true">
+		<div data-role="header" data-theme="b">
+		<h1 id="value-delete-modal-header-text">Delete Value</h1>
+		</div>
+
+		<div role="main" class="ui-content">
+		
+			<p>Are you sure you want to delete value: #<span id="value-delete-name"></span>?</p>
+			
+			<input id="value-delete-id" name="value-delete-id" type="hidden"></input>
+			
+			<a id="value-delete-submit" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Confirm</a>
+			<a id="value-delete-cancel" href="#values" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Cancel</a>
 		</div>
 	</div>
 	
