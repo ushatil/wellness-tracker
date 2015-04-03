@@ -19,6 +19,13 @@
 	background: radial-gradient(circle, red, lime);
 }
 
+.stats-graph {
+	width: 90%;
+	height: 200px; /**TODO: un-hardcode height**/
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
 .smiley-container {
 	width: 70%;
 	margin-right: 15%;

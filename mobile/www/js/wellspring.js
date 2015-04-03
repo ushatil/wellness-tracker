@@ -266,6 +266,9 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
  * 
  * END RAPHAEL SCRIPT FOR SLIDERS
  * 
+**/
+
+/**
  * BEGIN VALUES SCRIPT (KNOCKOUT)
  * 
  */
@@ -355,6 +358,98 @@ function onAddValueButtonTap() {
  * 
  */
 
+/**
+ * 
+ * BEGIN STATS SCRIPT
+ * 
+ */
+
+var STATS_GRAPH_LABEL_OFFSET = 30;
+
+function wellspringStatsGraph(divId, width, height, labels, points) {
+    var canvas = Raphael(container = divId, width=width, height=height);
+    var functionalHeight = height - STATS_GRAPH_LABEL_OFFSET;
+    
+    // TODO: Change grey fill
+    canvas.rect(0, 0, width, functionalHeight)
+    .attr({"fill" : "grey"});
+       points = quickSortByX(points);
+    
+    for (i = 0; i < labels.length; i++) {
+        var x = labels[i]["location"] * width;
+        var pathWord = "M" + x.toString() + "," + 0 + "L" + x.toString() + ","
+        + functionalHeight.toString() + "Z";
+        canvas.path(pathWord).attr({"stroke-width" : 0.5});
+        canvas.text(x, functionalHeight + STATS_GRAPH_LABEL_OFFSET / 2, labels[i]["label"]);
+    }
+    
+    if (points.length > 1) {
+        var statsPath = "M";
+        for (i = 0; i < points.length; i++) {
+             var x = points[i]["x"] * width;
+            var y = (1 - points[i]["y"]) * functionalHeight;
+            statsPath += x.toString() + "," + y.toString()
+            + ((i < points.length - 1) ? "L" : "");
+        }
+        canvas.path(statsPath).attr({"stroke-width" : 2});
+    }
+    
+    return canvas;
+}
+
+function quickSortByX(points) {
+    if (points.length <= 1) {
+        return points;
+    }
+    
+    var pivot = points.pop();
+    var left = [];
+    var right = [];
+    for (i = 0; i < points.length; i++) {
+        if (points[i]["x"] <= pivot["x"]) {
+            left.push(points[i]);
+        } else {
+            right.push(points[i]);
+        }
+    }
+    
+    return quickSortByX(left).concat([pivot], quickSortByX(right));
+}
+
+var canvases = [];
+
+function onStatisticsShow() {
+	var canvasCount = canvases.length;
+	for (i = 0; i < canvasCount; i++) {
+		var canvas = canvases.pop();
+		canvas.clear();
+	}
+	
+	//TODO: Load labels and points from AJAX
+	
+	var labels = [
+	              {"location" : 0.3, "label" : "Tue\nMar 03"},
+	              {"location" : 0.6, "label" : "Wed\nMar 04"}
+	              ];
+
+  var points = [
+      {"x" : 0.2, "y" : 0.8},
+      {"x" : 0.5, "y" : 0.3},
+      {"x" : 0.65, "y" : 0.6},
+      {"x" : 0.3, "y" : 0.5},
+      {"x" : 0.8, "y" : 0.2}
+      ];
+  
+  //TODO: Height is hard-coded as 200. Un-hard-code
+  	canvases.push(wellspringStatsGraph("mood-stats", $("#mood-stats").width(), 200, labels, points.slice()));
+  	canvases.push(wellspringStatsGraph("equilibrium-stats", $("#equilibrium-stats").width(), 200, labels, points.slice()));
+  	canvases.push(wellspringStatsGraph("support-stats", $("#support-stats").width(), 200, labels, points.slice()));
+  	canvases.push(wellspringStatsGraph("lifestyle-stats", $("#lifestyle-stats").width(), 200, labels, points.slice()));
+}
+
+/**
+ * END STATS SCRIPT
+ */
 function onHomeDashShow() {
 	if (ReportState) {
 		var overall = ReportState["OVERALL"];
@@ -366,9 +461,7 @@ function onHomeDashShow() {
 	}
 }
 
-function onStatisticsShow() {
-	return;
-}
+
 
 function onReportDashShow() {
 	if (ReportState) {
