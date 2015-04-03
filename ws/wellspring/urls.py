@@ -5,6 +5,7 @@ from wellspring.rest.device_api import register_device
 from wellspring.rest.report_api import post_report
 from wellspring.rest.value_api import value_endpoint_without_id
 from wellspring.rest.value_api import value_endpoint_with_id
+from wellspring.rest.error_api import *
 
 urlpatterns = patterns('',
     # Examples:
@@ -18,3 +19,8 @@ urlpatterns = patterns('',
 	
     #url(r'^admin/', include(admin.site.urls))
 )
+
+handler400 = 'wellspring.rest.error_api.wellspring400'
+handler403 = 'wellspring.rest.error_api.wellspring403'
+handler404 = 'wellspring.rest.error_api.wellspring404'
+handler500 = 'wellspring.rest.error_api.wellspring500'
