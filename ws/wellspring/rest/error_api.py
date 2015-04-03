@@ -1,5 +1,6 @@
 import logging
-from wellspring_rest_base import handle_rest_exception
+from wellspring.rest.wellspring_rest_base import handle_rest_exception
+from django.http import HttpResponse
 
 LOGGER = logging.getLogger(__name__)
 
