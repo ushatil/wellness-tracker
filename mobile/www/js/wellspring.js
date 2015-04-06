@@ -155,7 +155,7 @@ var ReportState;
 * http://raphaeljs.com/pie.js
 * Raphael and Wellspring are both available under the MIT License
 **/
-function sector(canvas, destination, cx, cy, r, startAngle, endAngle, params, text, textParams) {
+function homeDashSector(canvas, destination, cx, cy, r, startAngle, endAngle, params, text, textParams) {
   var rad = Math.PI / 180;
   var x1 = cx + r * Math.cos(-startAngle * rad),
       x2 = cx + r * Math.cos(-endAngle * rad),
@@ -173,7 +173,7 @@ function sector(canvas, destination, cx, cy, r, startAngle, endAngle, params, te
           event.changedTouches[0] &&
           !Raphael.isPointInsidePath(result.attr("path"), event.changedTouches[0].clientX - offsetLeft, event.changedTouches[0].clientY - offsetTop)) {
       } else {
-    	  $.mobile.navigate(destination);
+    	  $.mobile.navigate(destination, {transition : "none"});
       }
   });
   result.touchcancel(function() {
@@ -197,13 +197,13 @@ function drawHomeScreenWidget() {
 	
 	var centerX = width / 2;
 	var centerY = height / 2;
-	var radius = (height + width) / 4
+	var radius = ((height + width) / 4) * 0.85
 	
 	var canvas = new Raphael("home-dash-pie", height, width);
-	sector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "red"}, "Values", {});
-	sector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "green"}, "Lifestyle", {});
-	sector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "blue"}, "Support", {});
-	sector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "orange"}, "Equilibrium", {});
+	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "red"}, "Values", {});
+	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "green"}, "Lifestyle", {});
+	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "blue"}, "Support", {});
+	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "orange"}, "Equilibrium", {});
 }
 
 
