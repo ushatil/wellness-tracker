@@ -19,6 +19,12 @@
 	background: radial-gradient(circle, red, lime);
 }
 
+#home-dash-pie {
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
 .stats-graph {
 	width: 90%;
 	height: 200px; /**TODO: un-hardcode height**/

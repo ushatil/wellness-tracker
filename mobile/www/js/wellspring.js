@@ -145,6 +145,73 @@ function newValue(name, description, vestSubSection) {
 
 var ReportState;
 
+/**
+ * BEGIN RAPHAEL SCRIPT FOR HOME PAGE
+ * http://jsfiddle.net/1rcyLarh/6/
+ */
+
+/**
+* The following method borrows from a Raphael-hosted example:
+* http://raphaeljs.com/pie.js
+* Raphael and Wellspring are both available under the MIT License
+**/
+function sector(canvas, destination, cx, cy, r, startAngle, endAngle, params, text, textParams) {
+  var rad = Math.PI / 180;
+  var x1 = cx + r * Math.cos(-startAngle * rad),
+      x2 = cx + r * Math.cos(-endAngle * rad),
+      y1 = cy + r * Math.sin(-startAngle * rad),
+      y2 = cy + r * Math.sin(-endAngle * rad);
+  var result = canvas.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
+  var offsetLeft = canvas.canvas.offsetLeft;
+  var offsetTop = canvas.canvas.offsetTop;
+  result.touchstart(function() {
+      result.stop().animate({transform: "s1.1 1.1 " + cx + " " + cy}, 500, "elastic");
+  });
+  result.touchend(function(event) {
+      result.stop().animate({transform: ""}, 500, "elastic");
+      if (event.changedTouches &&
+          event.changedTouches[0] &&
+          !Raphael.isPointInsidePath(result.attr("path"), event.changedTouches[0].clientX - offsetLeft, event.changedTouches[0].clientY - offsetTop)) {
+      } else {
+    	  $.mobile.navigate(destination);
+      }
+  });
+  result.touchcancel(function() {
+      result.stop().animate({transform: ""}, 500, "elastic");
+  });
+  
+  var middleAngle = ((startAngle + endAngle) / 2) * rad;
+  var textX = cx + (r * Math.cos(middleAngle)) / 2;
+  var textY = cy - (r * Math.sin(middleAngle)) / 2;
+  var text = canvas.text(cx + (r * Math.cos(middleAngle)) / 2, cy - (r * Math.sin(middleAngle)) / 2, text);
+  text.attr(textParams);
+  
+}
+
+
+function drawHomeScreenWidget() {
+	var percentageWidth = $("#home-dash-pie").width();
+	var height = (percentageWidth / 100) * $(window).width();
+	var width = height;
+	$("#home-dash-pie").height(height);
+	
+	var centerX = width / 2;
+	var centerY = height / 2;
+	var radius = (height + width) / 4
+	
+	var canvas = new Raphael("home-dash-pie", height, width);
+	sector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "red"}, "Values", {});
+	sector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "green"}, "Lifestyle", {});
+	sector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "blue"}, "Support", {});
+	sector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "orange"}, "Equilibrium", {});
+}
+
+
+
+/**
+ * END RAPHAEL SCRIPT FOR HOME PAGE
+ */
+
 /***
  * 
  * BEGIN RAPHAEL SCRIPT FOR SLIDERS
@@ -160,6 +227,7 @@ function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, ca
     var pathWord = "M" + (outsideX - radius).toString() + "," + (outsideY - radius).toString() + "L" + (insideX - radius).toString() + "," +             (insideY - radius).toString();
 
     var path = canvas.path(pathWord);
+    // Note: 5% margin is hard-coded here
     var leftMargin = (5 / 100) * $(window).width();
     
     
@@ -534,6 +602,8 @@ function bindWellspringEvents() {
 	$('#report-support').on('pageshow', onSupportShow);
 	$('#report-equilibrium').on('pageshow', onEquilibriumShow);
 	$('#value-add').on('pageshow', onValueAddShow);
+	
+	$('#dashboard').on('pagecreate', drawHomeScreenWidget);
 	
 	$('#report-lifestyle').on('pagecreate', onLifestyleCreate);
 	$('#report-support').on('pagecreate', onSupportCreate);
