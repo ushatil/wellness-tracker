@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="edu.suffolk.wellspring" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>VESTS</name>
+    <name>inVEST</name>
     <description>
         A Cordova mobile application built for PhD Psychology research at Suffolk University.
     </description>
     <author email="uri.shatil@gmail.com" href="http://www.urishatil.com/">
         Uri Shatil
     </author>
+    <preference name="orientation" value="portrait" />
     <content src="index.html" />
     <access origin="*" />
 </widget>

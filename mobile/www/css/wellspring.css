@@ -38,6 +38,23 @@
 	margin-left: 15%;
 }
 
+.ui-controlgroup-controls {
+	width: 100% !important;
+}
+
+.ui-radio {
+	width: 20%;
+}
+
+.ui-btn {
+	text-align: center !important;
+}
+
+.underneath-smiley {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
 .full-width {
 	width: 100%;
 }

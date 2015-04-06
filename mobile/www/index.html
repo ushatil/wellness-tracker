@@ -27,7 +27,7 @@
 <!--         <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
         <link rel="stylesheet" type="text/css" href="css/wellspring.css" />
-        <title>Hello World</title>
+        <title>inVEST</title>
     </head>
     <body>
     
@@ -40,9 +40,9 @@
 			<h1>Dashboard</h1>
 		</div>
 		<div data-role="content">
-			<p>Dashboard Content</p>
-			<br><div id ="home-dash-pie"></div><br>
-			
+			<h1>inVEST in Self-Care</h1>
+			<br><div id ="home-dash-pie"></div>
+			<h3>Overall, how do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
@@ -63,6 +63,7 @@
 
    				</fieldset>
 			</div>
+			<p class="underneath-smiley"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
 
 		</div>
 		
@@ -89,12 +90,12 @@
 				<li><p>#<span data-bind="text: name"></span></p>
 					<p><textarea data-bind="text: description" class="full-width" readonly></textarea></p>
 					<p><span data-bind="text: vestSubSection"></span></p>
-					<p><button data-bind="event: {tap : $parent.showValue}">Edit</button></p>
-					<p><button data-bind="event: {tap : $parent.deleteValue}">Delete</button></p>
+					<p><a data-bind="event: {tap : $parent.showValue}"  data-role="button">Edit</a></p>
+					<p><a data-bind="event: {tap : $parent.deleteValue}"  data-role="button">Delete</a></p>
 				</li> 
 			</ul> 
 			<br>
-			<a id = "value-add-button" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Add Value</a>
+			<a id = "value-add-button" data-role="button">Add Value</a>
 			
 		</div>
 		
@@ -143,9 +144,9 @@
 			<input id="value-add-id" name="value-add-id" type="hidden"></input>
 			
 			
-			<a id="value-add-submit" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Add</a>
+			<a id="value-add-submit" data-role="button">Add</a>
 			<div id="value-add-validator-popup" data-role="popup"></div>
-			<a id="value-add-cancel" href="#values" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Cancel</a>
+			<a id="value-add-cancel" href="#values" data-role="button">Cancel</a>
 		</div>
 	</div>
 	
@@ -160,8 +161,8 @@
 			
 			<input id="value-delete-id" name="value-delete-id" type="hidden"></input>
 			
-			<a id="value-delete-submit" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Confirm</a>
-			<a id="value-delete-cancel" href="#values" class="ui-shadow ui-btn ui-corner-all ui-btn-inline full-width">Cancel</a>
+			<a id="value-delete-submit" data-role="button">Confirm</a>
+			<a id="value-delete-cancel" href="#values" data-role="button">Cancel</a>
 		</div>
 	</div>
 	
@@ -175,7 +176,7 @@
 			<h1>Statistics</h1>
 		</div>
 		<div data-role="content" id="stats-page-content">
-			<p>Statistics Content</p>
+			<h1>Statistics</h1><br>
 			<p>Mood</p>
 			<br><div id="mood-stats" class="stats-graph"></div><br>
 			<p>Equilibrium</p>
@@ -204,9 +205,11 @@
     
     <div id="report-dashboard" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed">
-			<h1>Report</h1>
+			<h1>Wellness</h1>
 		</div>
 		<div data-role="content">
+			<h1>Wellness</h1>
+			<h3>Overall, how do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="report-dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
@@ -227,6 +230,10 @@
 
    				</fieldset>
 			</div>
+			<p class="underneath-smiley"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
+			<br><a href="#report-equilibrium" data-role="button">Equilibrium</a>
+			<br><a href="#report-support" data-role="button">Support</a>
+			<br><a href="#report-lifestyle" data-role="button">Theraputic Lifestyle</a>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
@@ -253,8 +260,9 @@
 		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">Diet</span><span class="subsection-label float-right">Exercise</span></p>
-			<br><div id="lifestyle-sliders" class="sliders"></div><br>
+			<br><div id="lifestyle-sliders" class="sliders"></div>
 			<p><span class="subsection-label float-left">Meditation</span><span class="subsection-label float-right">Recreation</span></p>
+			<br><h3>How healthy you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="lifestyle-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
@@ -275,8 +283,7 @@
 
    				</fieldset>
 			</div>
-			<br>
-			<p><span class="float-left">Unhealthy</span><span class="float-right">Healthy</span></p>
+			<p class="underneath-smiley"><span class="float-left">Unhealthy</span><span class="float-right">Healthy</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
@@ -302,8 +309,9 @@
 		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">Friends</span><span class="subsection-label float-right">Family</span></p>
-			<br><div id="support-sliders" class="sliders"></div><br>
+			<br><div id="support-sliders" class="sliders"></div>
 			<p><span class="subsection-label float-left">Colleagues</span><span class="subsection-label float-right">Professionals</span></p>
+			<br><h3>How supported do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="support-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
@@ -324,8 +332,7 @@
 
    				</fieldset>
 			</div>
-			<br>
-			<p><span class="float-left">Alone</span><span class="float-right">Connected</span></p>
+			<p class="underneath-smiley"><span class="float-left">Alone</span><span class="float-right">Connected</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
@@ -351,8 +358,9 @@
 		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">School</span><span class="subsection-label float-right">Work</span></p>
-			<br><div id="equilibrium-sliders" class="sliders"></div><br>
+			<br><div id="equilibrium-sliders" class="sliders"></div>
 			<p><span class="subsection-label float-left">Self</span><span class="subsection-label float-right">Home</span></p>
+			<br><h3>How balanced do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="equilibrium-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
@@ -373,8 +381,7 @@
 
    				</fieldset>
 			</div>
-			<br>
-			<p><span class="float-left">Unbalanced</span><span class="float-right">Balanced</span></p>
+			<p class="underneath-smiley"><span class="float-left">Unbalanced</span><span class="float-right">Balanced</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
@@ -435,8 +442,8 @@
 		</div>
 	</div>
 	
-<!-- 			<script type="text/javascript" src="js/lib/energize-min.js"></script> -->
 	        <script type="text/javascript" src="cordova.js"></script>
+			<script type="text/javascript" src="js/lib/energize-min.js"></script>
 	        <script type="text/javascript" src="js/lib/jquery-1.11.2.min.js"></script>
 	        <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
 	        <script type="text/javascript" src="js/lib/knockout-3.3.0.js"></script>

@@ -162,19 +162,21 @@ function homeDashSector(canvas, destination, cx, cy, r, startAngle, endAngle, pa
       y1 = cy + r * Math.sin(-startAngle * rad),
       y2 = cy + r * Math.sin(-endAngle * rad);
   var result = canvas.path(["M", cx, cy, "L", x1, y1, "A", r, r, 0, +(endAngle - startAngle > 180), 0, x2, y2, "z"]).attr(params);
-  var offsetLeft = canvas.canvas.offsetLeft;
-  var offsetTop = canvas.canvas.offsetTop;
   result.touchstart(function() {
       result.stop().animate({transform: "s1.1 1.1 " + cx + " " + cy}, 500, "elastic");
   });
   result.touchend(function(event) {
-      result.stop().animate({transform: ""}, 500, "elastic");
+      var offsetLeft = $("#home-dash-pie").offset().left;
+      var offsetTop = $("#home-dash-pie").offset().top;
+      var callback;
       if (event.changedTouches &&
           event.changedTouches[0] &&
           !Raphael.isPointInsidePath(result.attr("path"), event.changedTouches[0].clientX - offsetLeft, event.changedTouches[0].clientY - offsetTop)) {
+    	  callback = function() {};
       } else {
-    	  $.mobile.navigate(destination, {transition : "none"});
+    	  callback = function() {$.mobile.navigate(destination, {transition : "none"});};
       }
+      	result.stop().animate({transform: ""}, 500, "elastic", callback);
   });
   result.touchcancel(function() {
       result.stop().animate({transform: ""}, 500, "elastic");
