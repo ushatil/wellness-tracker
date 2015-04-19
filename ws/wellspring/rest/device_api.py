@@ -5,7 +5,7 @@ from wellspring.services import device_service
 LOGGER = logging.getLogger(__name__)
 
 def register_device(request):
-    return handle_rest_request(request, device_post_handler, "POST")
+    return handle_rest_request(request, device_post_handler, ["POST"])
 
 def device_post_handler(request, response, device_uuid, id):
     responseBody = build_base_wellspring_message()

@@ -5,7 +5,7 @@ from wellspring.services import report_service
 LOGGER = logging.getLogger(__name__)
 
 def post_report(request):
-    return handle_rest_request(request, report_post_handler, "POST")
+    return handle_rest_request(request, report_post_handler, ["POST"])
     
 def report_post_handler(request, response, device_uuid, id):
     responseBody = build_base_wellspring_message()

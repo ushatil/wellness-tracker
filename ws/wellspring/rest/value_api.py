@@ -5,28 +5,30 @@ from wellspring.services import value_service
 LOGGER = logging.getLogger(__name__)
 
 def value_endpoint_without_id(request):
+    acceptable_methods = ["POST", "GET"]
     if (request.method == "POST"):
-        return handle_rest_request(request, post_new_value_handler, "POST")
+        return handle_rest_request(request, post_new_value_handler, acceptable_methods)
     if (request.method == "GET"):
-        return handle_rest_request(request, get_all_values_handler, "GET")
+        return handle_rest_request(request, get_all_values_handler, acceptable_methods)
     
     LOGGER.warning("Request made with unacceptable method")
     LOGGER.warning("Path: " + request.path)
     LOGGER.warning("Method: " + request.method)
-    return handle_rest_exception(response, 405, "Request method not allowed: " + request.method)
+    return handle_rest_exception(HttpResponse(), 405, "Request method not allowed: " + request.method)
 
 def value_endpoint_with_id(request, id):
+    acceptable_methods = ["DELETE", "PUT", "GET"]
     if (request.method == "GET"):
-        return handle_rest_request(request, get_value_by_id_handler, "GET", id)
+        return handle_rest_request(request, get_value_by_id_handler, acceptable_methods, id)
     if (request.method == "PUT"):
-        return handle_rest_request(request, update_value_by_id_handler, "PUT", id)
+        return handle_rest_request(request, update_value_by_id_handler, acceptable_methods, id)
     if (request.method == "DELETE"):
-        return handle_rest_request(request, delete_value_by_id_handler, "DELETE", id)
+        return handle_rest_request(request, delete_value_by_id_handler, acceptable_methods, id)
     
     LOGGER.warning("Request made with unacceptable method")
     LOGGER.warning("Path: " + request.path)
     LOGGER.warning("Method: " + request.method)
-    return handle_rest_exception(response, 405, "Request method not allowed: " + request.method)
+    return handle_rest_exception(HttpResponse(), 405, "Request method not allowed: " + request.method)
 
 def get_all_values_handler(request, response, device_uuid, id):
     responseBody = build_wellspring_list("WellspringValue")

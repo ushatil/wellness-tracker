@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, Validat
 
 LOGGER = logging.getLogger(__name__)
 
-def handle_rest_request(request, handler, acceptable_method, id=None):
+def handle_rest_request(request, handler, acceptable_methods, id=None):
     '''Handler will be called as follows:
     return handler(request, response, device_uuid, id)
     handler must return the response
@@ -20,8 +20,11 @@ def handle_rest_request(request, handler, acceptable_method, id=None):
     LOGGER.info("Path: " + request.path)
     LOGGER.info("Method: " + request.method)
     
+    if request.method == "OPTIONS":
+        return optionsResponse(response, acceptable_methods)
+    
     ## Check request method
-    if request.method != acceptable_method:
+    if request.method not in acceptable_methods:
         LOGGER.warning("Request made with unacceptable method")
         LOGGER.warning("Path: " + request.path)
         LOGGER.warning("Method: " + request.method)
@@ -109,3 +112,11 @@ def verify_object_type(json_object, expected_type):
 def verify_object_member(json_object, member_name):
     if member_name not in json_object:
         raise ValidationError("Object must fontain field: " + member_name)
+    
+def optionsResponse(response, acceptable_methods):
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Methods'] = ', '.join(acceptable_methods)
+    response['Access-Control-Max-Age'] = 1000
+    # note that '*' is not valid for Access-Control-Allow-Headers
+    response['Access-Control-Allow-Headers'] = 'origin, x-csrf-token, content-type, accept'
+    return response
