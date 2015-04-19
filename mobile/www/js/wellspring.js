@@ -1,4 +1,5 @@
-var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1"
+var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
+//var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
 
 function wellspringReport(reportState) {
 	return {
@@ -381,14 +382,32 @@ var ViewModel = function(values) {
 	   }
 	};
 	
-var valuesModel = new ViewModel(dummyValues);
+var valuesModel = new ViewModel([]);
 
 function onValueAddShow() {
 	$("#value-add-subsection").selectmenu("refresh");
 }
 
 function refreshValues() {
-	// AJAX get all values
+	$.ajax({
+		url : WELLSPRING_BASE_URL + "/value",
+		headers : {Device: device.uuid},
+		method : "GET",
+		success : function(data, status, xhr) {
+			var responseBody = JSON.parse(data);
+			if (responseBody.list) {
+				valuesModel.values.removeAll();
+				for (var i = 0; i < responseBody.list.length; i++) {
+					valuesModel.values.push(responseBody.list[i]);
+				}
+			} else {
+				errorPopup("Error getting values");
+			}
+		},
+		error : function(arg0, arg1, arg2) {
+			errorPopup("Error getting values");
+		}
+	});
 }
 	
 function onValueAddSubmit() {
@@ -421,7 +440,7 @@ function onValueAddSubmit() {
 			url : WELLSPRING_BASE_URL + "/value",
 			headers : {Device: device.uuid},
 			method : "POST",
-			data: newValue;
+			data: JSON.stringify(value),
 			success : function(data, status, xhr) {
 				refreshValues();
 				$.mobile.navigate("#values");
@@ -434,13 +453,13 @@ function onValueAddSubmit() {
 		
 	} else if (valuesAddMode == EDIT_MODE) {
 		var id = $('#value-add-id').val();
-		var updatedValue = updatedValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val(), id);
+		var value = updatedValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val(), id);
 		
 		$.ajax({
 			url : WELLSPRING_BASE_URL + "/value/" + encodeURIComponent(id.toString()),
 			headers : {Device: device.uuid},
 			method : "PUT",
-			data: updatedValue;
+			data: JSON.stringify(value),
 			success : function(data, status, xhr) {
 				refreshValues();
 				$.mobile.navigate("#values");
@@ -454,7 +473,20 @@ function onValueAddSubmit() {
 }
 
 function onValueDeleteSubmit() {
-	//TODO: Delete Value
+	var id = $('#value-delete-id').val();
+	$.ajax({
+		url : WELLSPRING_BASE_URL + "/value/" + encodeURIComponent(id.toString()),
+		headers : {Device: device.uuid},
+		method : "DELETE",
+		success : function(data, status, xhr) {
+			refreshValues();
+			$.mobile.navigate("#values");
+		},
+		error : function(arg0, arg1, arg2) {
+			$.mobile.navigate("#values");
+			errorPopup("Error deleting Value");
+		}
+	});
 }
 
 function onAddValueButtonTap() {
@@ -620,6 +652,7 @@ var valuesBound = false;
 function onValuesShow() {
 	if (!valuesBound) {
 		ko.applyBindings(valuesModel);
+		refreshValues();
 	}
 	valuesBound = true;
 }
@@ -729,7 +762,8 @@ function registerDevice() {
 
 
 function errorPopup(message) {
-	// Show message
+	$('#error-popup').html(message);
+	$('#error-popup').popup('open', {x : $(window).width() / 2, y :$(window).height() / 2});
 }
 
 function overlayShow() {
