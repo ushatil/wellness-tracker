@@ -800,6 +800,7 @@ var app = {
 	    	$.mobile.navigate("#dashboard");
 	    	$("#device-uuid").text(device.uuid);
 	        console.log('Received Event: ' + id);
+	    	$('#error-popup').popup();
 	        registerDevice();
 	    }
 };
