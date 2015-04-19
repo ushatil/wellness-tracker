@@ -7,12 +7,14 @@ from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, Validat
 
 LOGGER = logging.getLogger(__name__)
 
-def handle_rest_request(request, handler, acceptable_methods, id=None):
+def handle_rest_request(request, handler, acceptable_methods, pathParams={}):
     '''Handler will be called as follows:
-    return handler(request, response, device_uuid, id)
+    return handler(request, response, device_uuid, pathParams)
     handler must return the response
     
     method should be "GET", "PUT", "POST", or "DELETE"
+    
+    All path params should be in the pathParams dict
     '''
     response = HttpResponse()
     
@@ -42,7 +44,7 @@ def handle_rest_request(request, handler, acceptable_methods, id=None):
     
     ## Request is valid; try to process request
     try:
-        return handler(request, response, device_uuid, id)
+        return handler(request, response, device_uuid, pathParams)
     except ValidationError as e:
         LOGGER.warning("Request raised ValidationError")
         LOGGER.warning("Path: " + request.path)

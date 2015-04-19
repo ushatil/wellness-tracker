@@ -17,20 +17,21 @@ def value_endpoint_without_id(request):
     return handle_rest_exception(HttpResponse(), 405, "Request method not allowed: " + request.method)
 
 def value_endpoint_with_id(request, id):
+    pathParams = {"id" : id}
     acceptable_methods = ["DELETE", "PUT", "GET"]
     if (request.method == "GET"):
-        return handle_rest_request(request, get_value_by_id_handler, acceptable_methods, id)
+        return handle_rest_request(request, get_value_by_id_handler, acceptable_methods, pathParams)
     if (request.method == "PUT"):
-        return handle_rest_request(request, update_value_by_id_handler, acceptable_methods, id)
+        return handle_rest_request(request, update_value_by_id_handler, acceptable_methods, pathParams)
     if (request.method == "DELETE"):
-        return handle_rest_request(request, delete_value_by_id_handler, acceptable_methods, id)
+        return handle_rest_request(request, delete_value_by_id_handler, acceptable_methods, pathParams)
     
     LOGGER.warning("Request made with unacceptable method")
     LOGGER.warning("Path: " + request.path)
     LOGGER.warning("Method: " + request.method)
     return handle_rest_exception(HttpResponse(), 405, "Request method not allowed: " + request.method)
 
-def get_all_values_handler(request, response, device_uuid, id):
+def get_all_values_handler(request, response, device_uuid, pathParams):
     responseBody = build_wellspring_list("WellspringValue")
     values = value_service.get_all_values_for_device(device_uuid)
     for value in values:
@@ -45,7 +46,7 @@ def get_all_values_handler(request, response, device_uuid, id):
     
     return response
 
-def post_new_value_handler(request, response, device_uuid, id):
+def post_new_value_handler(request, response, device_uuid, pathParams):
     requestBody = get_request_body(request)
     
     verify_object_type(requestBody, "WellspringValue")
@@ -65,7 +66,8 @@ def post_new_value_handler(request, response, device_uuid, id):
     response.content = jsonify(responseBody)
     return response
 
-def get_value_by_id_handler(request, response, device_uuid, id):
+def get_value_by_id_handler(request, response, device_uuid, pathParams):
+    id = pathParams["id"]
     value = value_service.get_value_by_id(device_uuid, id)
     responseBody = {
                     "type" : "WellspringValue",
@@ -77,7 +79,8 @@ def get_value_by_id_handler(request, response, device_uuid, id):
     response.content = jsonify(responseBody)
     return response
 
-def update_value_by_id_handler(request, response, device_uuid, id):
+def update_value_by_id_handler(request, response, device_uuid, pathParams):
+    id = pathParams["id"]
     requestBody = get_request_body(request)
     
     verify_object_type(requestBody, "WellspringValue")
@@ -102,7 +105,8 @@ def update_value_by_id_handler(request, response, device_uuid, id):
     response.content = jsonify(responseBody)
     return response
 
-def delete_value_by_id_handler(request, response, device_uuid, id):
+def delete_value_by_id_handler(request, response, device_uuid, pathParams):
+    id = pathParams["id"]
     responseBody = build_base_wellspring_message()
     value_service.delete_value(device_uuid, id)
     responseBody["message"] = "Value succesfully deleted"
