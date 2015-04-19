@@ -1,3 +1,5 @@
+var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1"
+
 function wellspringReport(reportState) {
 	return {
 		type: "WellspringReport",
@@ -143,6 +145,17 @@ function newValue(name, description, vestSubSection) {
 	return result;
 }
 
+function updatedValue(name, description, vestSubSection, id) {
+	var result = {
+			"type" : "WellspringValue",
+			"description" : description,
+			"name" : name,
+			"vestSubSection" : vestSubSection,
+			"id" : id
+	};
+	return result;
+}
+
 var ReportState;
 
 /**
@@ -245,10 +258,11 @@ function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, ca
         y : startingY,
         onDragStart : function(x, y, event) {
             knob.animate(params = {"fill" : "lime"});
+            result.onMove(x, y, x, y, event);
         },
 
         onDragFinish : function(event) {
-            return;
+        	refreshProgressBars();
         },
 
         onMove : function (dx, dy, x, y, event) {
@@ -372,6 +386,10 @@ var valuesModel = new ViewModel(dummyValues);
 function onValueAddShow() {
 	$("#value-add-subsection").selectmenu("refresh");
 }
+
+function refreshValues() {
+	// AJAX get all values
+}
 	
 function onValueAddSubmit() {
 	var inputsValid = true;
@@ -399,13 +417,39 @@ function onValueAddSubmit() {
 	
 		var value = newValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val());
 		
-		/**
-		 * TODO: CHANGE TO AN AJAX CALL
-		 */
-		valuesModel.values.push(value);
-		$.mobile.navigate("#values");
+		$.ajax({
+			url : WELLSPRING_BASE_URL + "/value",
+			headers : {Device: device.uuid},
+			method : "POST",
+			data: newValue;
+			success : function(data, status, xhr) {
+				refreshValues();
+				$.mobile.navigate("#values");
+			},
+			error : function(arg0, arg1, arg2) {
+				$.mobile.navigate("#values");
+				errorPopup("Error submitting Value");
+			}
+		});
+		
 	} else if (valuesAddMode == EDIT_MODE) {
-		//TODO: Edit Value
+		var id = $('#value-add-id').val();
+		var updatedValue = updatedValue($('#value-add-name').val(), $('#value-add-description').val(), $('#value-add-subsection').val(), id);
+		
+		$.ajax({
+			url : WELLSPRING_BASE_URL + "/value/" + encodeURIComponent(id.toString()),
+			headers : {Device: device.uuid},
+			method : "PUT",
+			data: updatedValue;
+			success : function(data, status, xhr) {
+				refreshValues();
+				$.mobile.navigate("#values");
+			},
+			error : function(arg0, arg1, arg2) {
+				$.mobile.navigate("#values");
+				errorPopup("Error submitting Value");
+			}
+		});
 	}
 }
 
@@ -520,6 +564,22 @@ function onStatisticsShow() {
 /**
  * END STATS SCRIPT
  */
+
+function refreshProgressBars() {
+	var properties_filled = 0;
+	for (var member in ReportState) {
+		if (ReportState.hasOwnProperty(member)) {
+			if (ReportState[member] != -1) {
+				properties_filled++;
+			}
+		}
+	}
+	var progress = Math.floor((properties_filled / 16) * 100);
+	$(".progress-bar").each(function() {
+		$(this).val(progress);
+	});
+}
+
 function onHomeDashShow() {
 	if (ReportState) {
 		var overall = ReportState["OVERALL"];
@@ -618,24 +678,28 @@ function bindWellspringEvents() {
 	$("input[name='dashboard-overall']").change(function() {
 		if ($(this).is(":checked")) {
 			ReportState["OVERALL"] = Number($(this).val());
+			refreshProgressBars();
 		}
 	})
 	
 	$("input[name='report-dashboard-overall']").change(function() {
 		if ($(this).is(":checked")) {
 			ReportState["OVERALL"] = Number($(this).val());
+			refreshProgressBars();
 		}
 	})
 	
 	$("input[name='lifestyle-overall']").change(function() {
 		if ($(this).is(":checked")) {
 			ReportState["LIFESTYLE"] = Number($(this).val());
+			refreshProgressBars();
 		}
 	})
 	
 	$("input[name='support-overall']").change(function() {
 		if ($(this).is(":checked")) {
 			ReportState["SUPPORT"] = Number($(this).val());
+			refreshProgressBars();
 		}
 	})
 	
@@ -647,6 +711,33 @@ function bindWellspringEvents() {
 	
 	// Stop-gap
 	$('#debug-output').on('pageshow', debugOutput);
+}
+
+function registerDevice() {
+	$.ajax({
+		url : WELLSPRING_BASE_URL + "/register",
+		headers : {Device: device.uuid},
+		method : "POST",
+		success : function(response) {
+			$("#ajax-test-output").text("AJAX Success");
+		},
+		error : function(arg0, arg1, arg2) {
+			$("#ajax-test-output").text("AJAX Failed");
+		}
+	});
+}
+
+
+function errorPopup(message) {
+	// Show message
+}
+
+function overlayShow() {
+	// Show an overlay that indicates things are churning
+}
+
+function overlayClear() {
+	// Clear the overlay from overlayShow()
 }
 
 var app = {
@@ -675,6 +766,7 @@ var app = {
 	    	$.mobile.navigate("#dashboard");
 	    	$("#device-uuid").text(device.uuid);
 	        console.log('Received Event: ' + id);
+	        registerDevice();
 	    }
 };
 

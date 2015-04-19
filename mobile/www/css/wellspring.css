@@ -71,6 +71,28 @@
 	float: right;
 }
 
+.wellspring-inline-header {
+	display: inline !important;
+	margin-left: 50%;
+	margin-right: 25%;
+}
+
+.progress-bar-container {
+	float: left;
+	width: 15%;
+	height: 70%;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.progress-bar {
+	display: inline;
+	float: right;
+	margin-right: 5%;
+	width: 20%;
+	border-radius: 5px;
+}
+
 /**
 html {
 	height: 100%;
