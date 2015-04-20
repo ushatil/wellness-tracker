@@ -550,9 +550,11 @@ function wellspringStatsGraph(divId, width, height, labels, points) {
         var statsPath = "M";
         for (i = 0; i < points.length; i++) {
              var x = points[i]["x"] * width;
-            var y = (1 - points[i]["y"]) * functionalHeight;
+            var y = ((1 - points[i]["y"]) + 0.1) * functionalHeight; // The +0.1 is because the actual range of y is [0.2, 1]
             statsPath += x.toString() + "," + y.toString()
             + ((i < points.length - 1) ? "L" : "");
+            
+            canvas.ellipse(x, y, 5, 5).attr('fill', 'black');
         }
         canvas.path(statsPath).attr({"stroke-width" : 2});
     }
@@ -581,7 +583,7 @@ function quickSortByX(points) {
 
 var canvases = [];
 
-function onStatisticsShow() {
+function drawStatistics(pointsLookup, labels) {
 	var canvasCount = canvases.length;
 	for (i = 0; i < canvasCount; i++) {
 		var canvas = canvases.pop();
@@ -590,7 +592,7 @@ function onStatisticsShow() {
 	
 	//TODO: Load labels and points from AJAX
 	
-	var labels = [
+	/**var labels = [
 	              {"location" : 0.3, "label" : "Tue\nMar 03"},
 	              {"location" : 0.6, "label" : "Wed\nMar 04"}
 	              ];
@@ -601,13 +603,65 @@ function onStatisticsShow() {
       {"x" : 0.65, "y" : 0.6},
       {"x" : 0.3, "y" : 0.5},
       {"x" : 0.8, "y" : 0.2}
-      ];
+      ];**/
   
   //TODO: Height is hard-coded as 200. Un-hard-code
-  	canvases.push(wellspringStatsGraph("mood-stats", $("#mood-stats").width(), 200, labels, points.slice()));
-  	canvases.push(wellspringStatsGraph("equilibrium-stats", $("#equilibrium-stats").width(), 200, labels, points.slice()));
-  	canvases.push(wellspringStatsGraph("support-stats", $("#support-stats").width(), 200, labels, points.slice()));
-  	canvases.push(wellspringStatsGraph("lifestyle-stats", $("#lifestyle-stats").width(), 200, labels, points.slice()));
+  	canvases.push(wellspringStatsGraph("mood-stats", $("#mood-stats").width(), 200, labels, pointsLookup["MOOD"]));
+  	canvases.push(wellspringStatsGraph("equilibrium-stats", $("#equilibrium-stats").width(), 200, labels, pointsLookup["EQUILIBRIUM"]));
+  	canvases.push(wellspringStatsGraph("support-stats", $("#support-stats").width(), 200, labels, pointsLookup["SUPPORT"]));
+  	canvases.push(wellspringStatsGraph("lifestyle-stats", $("#lifestyle-stats").width(), 200, labels, pointsLookup["LIFESTYLE"]));
+}
+
+var weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function onStatisticsShow() {
+	var now = new Date();
+	var nowUTC = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
+	var lastWeek = nowUTC - (7*24*60*60*1000);
+	var timeSpan = nowUTC - lastWeek;
+	
+
+	
+	$.ajax({
+		url : WELLSPRING_BASE_URL + "/stats/7",
+		headers : {Device: device.uuid},
+		method : "GET",
+		success : function(data, status, xhr) {
+			var labels = [];
+			var pointsLookup = {"MOOD" : [], "SUPPORT" : [], "LIFESTYLE" : [], "EQUILIBRIUM" : []};
+			var responseBody = JSON.parse(data);
+			
+			for (var i = 0; i < 7; i++) {
+				var beginningOfDay = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()-i);
+				var x = (beginningOfDay - lastWeek) / timeSpan;
+				var label = weekdays[beginningOfDay.getDay()] + "\n" + months[beginningOfDay.getMonth()] + " " + beginningOfDay.getDate().toString();
+				labels.push({"location" : x, "label" : label})
+			}
+			
+			if (responseBody.fullStatistics) {
+				var fullStatistics = responseBody.fullStatistics;
+				for (var i = 0; i < fullStatistics.length; i++) {
+					if (fullStatistics[i] && fullStatistics[i].category && fullStatistics[i].categoryStatistics) {
+						var category = fullStatistics[i].category;
+						var categoryStatistics = fullStatistics[i].categoryStatistics;
+						for (var j = 0; j < categoryStatistics.length; j++) {
+							if (categoryStatistics[j] && categoryStatistics[j].time && categoryStatistics[j].rating) {
+								var pointY = categoryStatistics[j].rating / 5;
+								var pointX = (Date.parse(categoryStatistics[j].time) - lastWeek) / timeSpan;
+								pointsLookup[category].push({x : pointX, y : pointY});
+							}
+						}
+					}
+				}
+			}
+			drawStatistics(pointsLookup, labels);
+			
+		},
+		error : function(arg0, arg1, arg2) {
+			errorPopup("Error getting values");
+		}
+	});
 }
 
 /**
