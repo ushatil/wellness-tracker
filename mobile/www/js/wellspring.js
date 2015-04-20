@@ -4,77 +4,77 @@ var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wells
 function wellspringReport(reportState) {
 	return {
 		type: "WellspringReport",
-		overall: false,
+		overall: reportState["OVERALL"],
 		reportSections: [
 		                 {
 		                	 type: "WellspringReportSection",
 		                	 name: "LIFESTYLE",
-		                	 overall: false,
-		                	 subections: [
+		                	 overall: reportState["LIFESTYLE"],
+		                	 subsections: [
 		                 	             {
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "DIET",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["DIET"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "EXERCISE",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["EXERCISE"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "MEDITATION",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["MEDITATION"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "RECREATION",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["RECREATION"]
 		                 	             }
              	             ]
 		                 },
 		                 {
 		                	 type: "WellspringReportSection",
 		                	 name: "SUPPORT",
-		                	 overall: false,
-		                	 subections: [
+		                	 overall: reportState["SUPPORT"],
+		                	 subsections: [
 		                 	             {
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "PROFESSIONALS",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["PROFESSIONALS"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "FAMILY",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["FAMILY"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "FRIENDS",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["FRIENDS"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "COLLEAGUES",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["COLLEAGUES"]
 		                 	             }
              	             ]
 		                 },
 		                 {
 		                	 type: "WellspringReportSection",
 		                	 name: "EQUILIBRIUM",
-		                	 overall: false,
-		                	 subections: [
+		                	 overall: reportState["EQUILIBRIUM"],
+		                	 subsections: [
 		                 	             {
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "SCHOOL",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["SCHOOL"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "WORK",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["WORK"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "SELF",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["SELF"]
 		                 	             },{
 		                 	            	 type: "WellspringReportSubsection",
 		                 	            	 name: "HOME",
-		                 	            	 rating: false
+		                 	            	 rating: reportState["HOME"]
 		                 	             }
              	             ]
 		                 }
@@ -158,6 +158,23 @@ function updatedValue(name, description, vestSubSection, id) {
 }
 
 var ReportState;
+
+function submitReport() {
+	var requestBody = wellspringReport(ReportState);
+	
+	$.ajax({
+		url : WELLSPRING_BASE_URL + "/report",
+		headers : {Device: device.uuid},
+		method : "POST",
+		data: JSON.stringify(requestBody),
+		success : function(data, status, xhr) {
+			errorPopup("Success!");
+		},
+		error : function(arg0, arg1, arg2) {
+			errorPopup("Error submitting Value");
+		}
+	});
+}
 
 /**
  * BEGIN RAPHAEL SCRIPT FOR HOME PAGE
@@ -606,6 +623,10 @@ function refreshProgressBars() {
 			}
 		}
 	}
+	if (properties_filled == 16) {
+		showSubmitReportButtons();
+		return;
+	}
 	var progress = Math.floor((properties_filled / 16) * 100);
 	$(".progress-bar").each(function() {
 		$(this).val(progress);
@@ -708,6 +729,10 @@ function bindWellspringEvents() {
 	$('#value-delete-submit').on('tap', onValueDeleteSubmit);
 	$('#value-add-button').on('tap', onAddValueButtonTap);
 	
+	$('.submit-report-button').each(function() {
+		$(this).on('tap', submitReport);
+	});
+	
 	$("input[name='dashboard-overall']").change(function() {
 		if ($(this).is(":checked")) {
 			ReportState["OVERALL"] = Number($(this).val());
@@ -764,6 +789,15 @@ function registerDevice() {
 function errorPopup(message) {
 	$('#error-popup').html(message);
 	$('#error-popup').popup('open', {x : $(window).width() / 2, y :$(window).height() / 2});
+}
+
+function showSubmitReportButtons() {
+	$(".progress-bar").each(function() {
+		$(this).hide();
+	});
+	$('.submit-report-button').each(function() {
+		$(this).show();
+	});
 }
 
 function overlayShow() {
