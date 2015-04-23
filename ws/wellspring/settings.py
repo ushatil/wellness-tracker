@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.204.129']
 
+INTERVENTIONS_FILE = '/var/www/resources/interventions.csv'
+
 
 # Application definition
 

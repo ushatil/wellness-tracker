@@ -137,3 +137,8 @@ class DeviceServiceTest(TestCase):
                           device_uuid = john_uuid, name = "Stupidity", description = "I like retrieving data that doesn't exist",
                           vest_subsection_name = "SELF")
         
+    def test_get_value_for_subsection(self):
+        self.assertEquals(value_service.get_value_for_subsection("SCHOOL", sarah_uuid).value_name, "Math")
+        
+        for i in range(10):
+            self.assertTrue(value_service.get_value_for_subsection("SELF", john_uuid).value_name in ["Thinking", "Discipline"])

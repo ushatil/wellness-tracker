@@ -1,4 +1,5 @@
 import logging
+import random
 from wellspring.models import Device, Value
 from wellspring.services import device_service, vest_service
 from django.core.exceptions import PermissionDenied
@@ -50,4 +51,16 @@ def update_value(value_id, device_uuid, name, description, vest_subsection_name)
     
     value.save()
     return value
+
+def get_value_for_subsection(vest_subsection_name, device_uuid):
+    '''Will return None if no such value exists
+    '''
     
+    vest_subsection = vest_service.get_by_name_vest_subsection(vest_subsection_name)
+    device = device_service.get_by_device_uuid(device_uuid)
+    
+    if not Value.objects.filter(device = device, vest_subsection = vest_subsection).exists():
+        return None
+    
+    values = list(Value.objects.filter(device = device, vest_subsection = vest_subsection))
+    return values[random.randint(0, len(values)-1)]

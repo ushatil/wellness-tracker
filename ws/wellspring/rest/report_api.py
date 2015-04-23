@@ -1,7 +1,7 @@
 import logging
 import datetime
 from wellspring.rest.wellspring_rest_base import *
-from wellspring.services import report_service
+from wellspring.services import report_service, intervention_service, value_service
 
 LOGGER = logging.getLogger(__name__)
 
@@ -13,7 +13,6 @@ def get_stats(request, days):
     return handle_rest_request(request, stats_handler, ["GET"], pathParams)
     
 def report_post_handler(request, response, device_uuid, pathParams):
-    responseBody = build_base_wellspring_message()
     
     requestBody = get_request_body(request)
     
@@ -44,9 +43,26 @@ def report_post_handler(request, response, device_uuid, pathParams):
             
         section_ratings[name] = (overall, subsectionsDict)
     
-    report_service.add_report(device_uuid, report_rating, section_ratings)
+    lowest_rating = 100
+    intervention_section = "SELF"
     
-    responseBody["message"] = "Report succesfully posted"
+    report = report_service.add_report(device_uuid, report_rating, section_ratings)
+    
+    for report_section in report.reportsection_set.all():
+        for report_subsection in report_section.reportsubsection_set.all():
+            if report_subsection.subsection_rating < lowest_rating:
+                lowest_rating = report_subsection.subsection_rating
+                intervention_section = report_subsection.vest_subsection.subsection_name
+    
+    intervention = intervention_service.get_intervention(intervention_section)
+    value = value_service.get_value_for_subsection(intervention_section, device_uuid)
+    
+    value_name = "NONE"
+    
+    if value != None:
+        value_name = value.value_name
+    
+    responseBody = create_intervention(intervention, value_name, intervention_section)
     response.content = jsonify(responseBody)
     return response
 
@@ -82,6 +98,14 @@ def stats_handler(request, response, device_uuid, pathParams):
     response.content = jsonify(responseBody)
     
     return response
+
+def create_intervention(intervention, value, subsection_name):
+    return {
+            "type" : "WellspringIntervention",
+            "intervention" : intervention,
+            "value" : value,
+            "subsection" : subsection_name
+            }
 
 def create_statistic(timestamp, rating):
     return {
