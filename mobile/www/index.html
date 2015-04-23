@@ -37,7 +37,13 @@
      -->
 	<div id="dashboard" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Dashboard</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Dashboard</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>
 		</div>
 		<div data-role="content">
 			<h1>inVEST in Self-Care</h1>
@@ -47,19 +53,19 @@
     			<fieldset id="dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
 	         		<input type="radio" name="dashboard-overall" id="dashboard-overall-radio-1" value="1" class="mood-1">
-	         		<label for="dashboard-overall-radio-1">1</label>
+	         		<label for="dashboard-overall-radio-1" class="mood-1"><img src="img/mood1.svg"></label>
 	         		
      			    <input type="radio" name="dashboard-overall" id="dashboard-overall-radio-2" value="2" class="mood-2">
-	         		<label for="dashboard-overall-radio-2">2</label>
+	         		<label for="dashboard-overall-radio-2" class="mood-2"><img src="img/mood2.svg"></label>
 	         		
      			    <input type="radio" name="dashboard-overall" id="dashboard-overall-radio-3" value="3" class="mood-3">
-	         		<label for="dashboard-overall-radio-3">3</label>
+	         		<label for="dashboard-overall-radio-3" class="mood-3"><img src="img/mood3.svg"></label>
 	         		
      			    <input type="radio" name="dashboard-overall" id="dashboard-overall-radio-4" value="4" class="mood-4">
-	         		<label for="dashboard-overall-radio-4">4</label>
+	         		<label for="dashboard-overall-radio-4" class="mood-4"><img src="img/mood4.svg"></label>
 	         		
      			    <input type="radio" name="dashboard-overall" id="dashboard-overall-radio-5" value="5" class="mood-5">
-	         		<label for="dashboard-overall-radio-5">5</label>
+	         		<label for="dashboard-overall-radio-5" class="mood-5"><img src="img/mood5.svg"></label>
 
    				</fieldset>
 			</div>
@@ -84,8 +90,13 @@
 <!-- 	VALUES -->
 	<div id="values" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Values</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Values</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content">
 		
 			<ul id="value-list" data-bind="foreach: values" data-role="listview"> 
@@ -190,8 +201,13 @@
      -->
    	<div id="statistics" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Statistics</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Statistics</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content" id="stats-page-content">
 			<h1>Statistics</h1><br>
 			<p>Mood</p>
@@ -222,8 +238,13 @@
     
     <div id="report-dashboard" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Wellness</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Wellness</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content">
 			<h1>Wellness</h1>
 			<h3>Overall, how do you feel today?</h3>
@@ -231,19 +252,19 @@
     			<fieldset id="report-dashboard-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
 	         		<input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-1" value="1" class="mood-1">
-	         		<label for="report-dashboard-overall-radio-1">1</label>
+	         		<label for="report-dashboard-overall-radio-1" class="mood-1"><img src="img/mood1.svg"></label>
 	         		
      			    <input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-2" value="2" class="mood-2">
-	         		<label for="report-dashboard-overall-radio-2">2</label>
+	         		<label for="report-dashboard-overall-radio-2" class="mood-2"><img src="img/mood2.svg"></label>
 	         		
      			    <input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-3" value="3" class="mood-3">
-	         		<label for="report-dashboard-overall-radio-3">3</label>
+	         		<label for="report-dashboard-overall-radio-3" class="mood-3"><img src="img/mood3.svg"></label>
 	         		
      			    <input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-4" value="4" class="mood-4">
-	         		<label for="report-dashboard-overall-radio-4">4</label>
+	         		<label for="report-dashboard-overall-radio-4" class="mood-4"><img src="img/mood4.svg"></label>
 	         		
      			    <input type="radio" name="report-dashboard-overall" id="report-dashboard-overall-radio-5" value="5" class="mood-5">
-	         		<label for="report-dashboard-overall-radio-5">5</label>
+	         		<label for="report-dashboard-overall-radio-5" class="mood-5"><img src="img/mood5.svg"></label>
 
    				</fieldset>
 			</div>
@@ -273,8 +294,13 @@
 	    
     <div id="report-lifestyle" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Lifestyle</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Lifestyle</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">Diet</span><span class="subsection-label float-right">Exercise</span></p>
 			<br><div id="lifestyle-sliders" class="sliders"></div>
@@ -284,19 +310,19 @@
     			<fieldset id="lifestyle-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
 	         		<input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-1" value="1" class="mood-1">
-	         		<label for="lifestyle-overall-radio-1">1</label>
+	         		<label for="lifestyle-overall-radio-1" class="mood-1"><img src="img/mood1.svg"></label>
 	         		
      			    <input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-2" value="2" class="mood-2">
-	         		<label for="lifestyle-overall-radio-2">2</label>
+	         		<label for="lifestyle-overall-radio-2" class="mood-2"><img src="img/mood2.svg"></label>
 	         		
      			    <input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-3" value="3" class="mood-3">
-	         		<label for="lifestyle-overall-radio-3">3</label>
+	         		<label for="lifestyle-overall-radio-3" class="mood-3"><img src="img/mood3.svg"></label>
 	         		
      			    <input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-4" value="4" class="mood-4">
-	         		<label for="lifestyle-overall-radio-4">4</label>
+	         		<label for="lifestyle-overall-radio-4" class="mood-4"><img src="img/mood4.svg"></label>
 	         		
      			    <input type="radio" name="lifestyle-overall" id="lifestyle-overall-radio-5" value="5" class="mood-5">
-	         		<label for="lifestyle-overall-radio-5">5</label>
+	         		<label for="lifestyle-overall-radio-5" class="mood-5"><img src="img/mood5.svg"></label>
 
    				</fieldset>
 			</div>
@@ -322,8 +348,13 @@
 	
     <div id="report-support" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Support</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Support</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">Friends</span><span class="subsection-label float-right">Family</span></p>
 			<br><div id="support-sliders" class="sliders"></div>
@@ -333,19 +364,19 @@
     			<fieldset id="support-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
 	         		<input type="radio" name="support-overall" id="support-overall-radio-1" value="1" class="mood-1">
-	         		<label for="support-overall-radio-1">1</label>
+	         		<label for="support-overall-radio-1" class="mood-1"><img src="img/mood1.svg"></label>
 	         		
      			    <input type="radio" name="support-overall" id="support-overall-radio-2" value="2" class="mood-2">
-	         		<label for="support-overall-radio-2">2</label>
+	         		<label for="support-overall-radio-2" class="mood-2"><img src="img/mood2.svg"></label>
 	         		
      			    <input type="radio" name="support-overall" id="support-overall-radio-3" value="3" class="mood-3">
-	         		<label for="support-overall-radio-3">3</label>
+	         		<label for="support-overall-radio-3" class="mood-3"><img src="img/mood3.svg"></label>
 	         		
      			    <input type="radio" name="support-overall" id="support-overall-radio-4" value="4" class="mood-4">
-	         		<label for="support-overall-radio-4">4</label>
+	         		<label for="support-overall-radio-4" class="mood-4"><img src="img/mood4.svg"></label>
 	         		
      			    <input type="radio" name="support-overall" id="support-overall-radio-5" value="5" class="mood-5">
-	         		<label for="support-overall-radio-5">5</label>
+	         		<label for="support-overall-radio-5" class="mood-5"><img src="img/mood5.svg"></label>
 
    				</fieldset>
 			</div>
@@ -371,8 +402,13 @@
 	
     <div id="report-equilibrium" data-role="page">
 		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
-			<h1>Equilibrium</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
-		</div>
+			<table class="real-full-width">
+				<tr>
+				<td class="one-quarter"></td>
+				<td class="one-half"><h1>Equilibrium</h1></td>
+				<td class="one-quarter"><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" data-role="button" style="display: none;">Submit</a></td>
+				</tr>
+			</table>		</div>
 		<div data-role="content">
 			<p><span class="subsection-label float-left">School</span><span class="subsection-label float-right">Work</span></p>
 			<br><div id="equilibrium-sliders" class="sliders"></div>
@@ -382,19 +418,19 @@
     			<fieldset id="equilibrium-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
     			
 	         		<input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-1" value="1" class="mood-1">
-	         		<label for="equilibrium-overall-radio-1">1</label>
+	         		<label for="equilibrium-overall-radio-1" class="mood-1"><img src="img/mood1.svg"></label>
 	         		
      			    <input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-2" value="2" class="mood-2">
-	         		<label for="equilibrium-overall-radio-2">2</label>
+	         		<label for="equilibrium-overall-radio-2" class="mood-2"><img src="img/mood2.svg"></label>
 	         		
      			    <input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-3" value="3" class="mood-3">
-	         		<label for="equilibrium-overall-radio-3">3</label>
+	         		<label for="equilibrium-overall-radio-3" class="mood-3"><img src="img/mood3.svg"></label>
 	         		
      			    <input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-4" value="4" class="mood-4">
-	         		<label for="equilibrium-overall-radio-4">4</label>
+	         		<label for="equilibrium-overall-radio-4" class="mood-4"><img src="img/mood4.svg"></label>
 	         		
      			    <input type="radio" name="equilibrium-overall" id="equilibrium-overall-radio-5" value="5" class="mood-5">
-	         		<label for="equilibrium-overall-radio-5">5</label>
+	         		<label for="equilibrium-overall-radio-5" class="mood-5"><img src="img/mood5.svg"></label>
 
    				</fieldset>
 			</div>

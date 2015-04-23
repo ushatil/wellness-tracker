@@ -1,5 +1,8 @@
 var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
-//var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
+
+String.prototype.toReadableCase = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
+}
 
 function wellspringReport(reportState) {
 	return {
@@ -169,8 +172,11 @@ function submitReport() {
 		data: JSON.stringify(requestBody),
 		success : function(data, status, xhr) {
 			var responseBody = JSON.parse(data);
-			if (responseBody.value && responseBody.value != "NONE") {
-				$("#intervention-line-1").html("You said you valued: " + responseBody.value);
+			if (responseBody.subsection && responseBody.value && responseBody.value != "NONE") {
+				$("#intervention-line-1").html("You said you valued, " + responseBody.value + 
+						", but you scored low in " + responseBody.subsection.toString().toReadableCase() + ".");
+			} else if (responseBody.subsection) {
+				$("#intervention-line-1").html("You scored low in " + responseBody.subsection.toString().toReadableCase() + ".");
 			}
 			if (responseBody.intervention) {
 				$("#intervention-line-2").html(responseBody.intervention);
@@ -223,7 +229,14 @@ function homeDashSector(canvas, destination, cx, cy, r, startAngle, endAngle, pa
   var middleAngle = ((startAngle + endAngle) / 2) * rad;
   var textX = cx + (r * Math.cos(middleAngle)) / 2;
   var textY = cy - (r * Math.sin(middleAngle)) / 2;
-  var text = canvas.text(cx + (r * Math.cos(middleAngle)) / 2, cy - (r * Math.sin(middleAngle)) / 2, text);
+  
+  /**
+   * WARNING
+   * The y value in webkit (Chrome / android) is doubled in Raphael.
+   * This is a known bug in Raphael (https://github.com/DmitryBaranovskiy/raphael/issues/491)
+   * This will need to be fixed for iOS
+   */
+  var text = canvas.text(textX, textY/2, text);
   text.attr(textParams);
   
 }
@@ -239,11 +252,13 @@ function drawHomeScreenWidget() {
 	var centerY = height / 2;
 	var radius = ((height + width) / 4) * 0.85
 	
+	var textParams = {"font-size" : "24px"};
+	
 	var canvas = new Raphael("home-dash-pie", height, width);
-	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "#FFFF83"}, "Values", {});
-	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "#75FF75"}, "Lifestyle", {});
-	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "#DA91FF"}, "Support", {});
-	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "#5CD6FF"}, "Equilibrium", {});
+	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "#FFFF83"}, "Values", textParams);
+	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "#75FF75"}, "Lifestyle", textParams);
+	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "#DA91FF"}, "Support", textParams);
+	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "#5CD6FF"}, "Equilibrium", textParams);
 }
 
 
@@ -871,6 +886,7 @@ function overlayClear() {
 }
 
 function browserDebug() {
+	WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
 	$('#error-popup').popup();
 	ReportState = newReportState();
 }

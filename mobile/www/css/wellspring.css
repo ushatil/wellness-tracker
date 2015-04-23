@@ -91,6 +91,10 @@
 	width: 98%;
 }
 
+.real-full-width {
+	width: 100%;
+}
+
 .subsection-label {
 	
 }
@@ -119,10 +123,16 @@
 
 .progress-bar {
 	display: inline;
-	float: right;
+	float: left;
 	margin-right: 5%;
-	width: 20%;
+	width: 80%;
 	border-radius: 5px;
+}
+
+.submit-report-button {
+	width: 80%;
+	float: left;
+	margin-right: 5%;
 }
 
 .value-wide-cell {
@@ -151,11 +161,11 @@
 }
 
 .wellspring-single-footer {
-	height: 8%;
+	height: 6%;
 }
 
 .wellspring-double-footer {
-	height: 16%;
+	height: 12%;
 }
 
 .wellspring-full-navbar {
@@ -164,6 +174,39 @@
 
 .wellspring-half-navbar {
 	height: 50%;
+}
+
+.mood-1.ui-radio-off {
+	background: red !important;
+}
+
+.mood-2.ui-radio-off {
+	background: orange !important;
+}
+
+.mood-3.ui-radio-off {
+	background: yellow !important;
+}
+
+.mood-4.ui-radio-off {
+	background: #00FFCC !important;
+}
+
+.mood-5.ui-radio-off {
+	background: green !important;
+}
+
+.ui-radio-on {
+	background: blue !important;
+}
+
+.one-quarter {
+	width: 25%;
+}
+
+.one-half {
+	width: 50%;
+	text-align: center;
 }
 
 /**
