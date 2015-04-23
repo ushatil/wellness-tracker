@@ -1,6 +1,34 @@
 @CHARSET "UTF-8";
 
 
+#values, #value-add, #value-delete {
+	background: #FFFF83;
+}
+
+#report-equilibrium {
+	background: #5CD6FF;
+}
+
+.report-dash-link-equilibrium {
+	background: #5CD6FF !important;
+}
+
+#report-support {
+	background: #DA91FF;
+}
+
+.report-dash-link-support {
+	background: #DA91FF !important;
+}
+
+#report-lifestyle {
+	background: #75FF75;
+}
+
+.report-dash-link-lifestyle {
+	background: #75FF75 !important;
+}
+
 .in, .out {
 	-webkit-animation-timing-function: ease-in-out;
 	-webkit-animation-duration: 350ms !important;

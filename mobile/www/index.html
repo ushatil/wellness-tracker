@@ -113,9 +113,9 @@
 		</div>
 	</div>
 	
-	<div id="value-add" data-role="page" data-dialo="true">
+	<div id="value-add" data-role="page" data-dialog="true">
 		<div data-role="header" data-theme="b">
-		<h1 id="value-add-modal-header-text">Add Value</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
+		<h1 id="value-add-modal-header-text">Add Value</h1>
 		</div>
 
 		<div role="main" class="ui-content">
@@ -152,9 +152,9 @@
 		</div>
 	</div>
 	
-	<div id="value-delete" data-role="page" data-dialo="true">
+	<div id="value-delete" data-role="page" data-dialog="true">
 		<div data-role="header" data-theme="b">
-		<h1 id="value-delete-modal-header-text">Delete Value</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
+		<h1 id="value-delete-modal-header-text">Delete Value</h1>
 		</div>
 
 		<div role="main" class="ui-content">
@@ -233,9 +233,9 @@
    				</fieldset>
 			</div>
 			<p class="underneath-smiley"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
-			<br><a href="#report-equilibrium" data-role="button" data-transition="none">Equilibrium</a>
-			<br><a href="#report-support" data-role="button" data-transition="none">Support</a>
-			<br><a href="#report-lifestyle" data-role="button" data-transition="none">Theraputic Lifestyle</a>
+			<br><a href="#report-equilibrium" class="report-dash-link-equilibrium" data-role="button" data-transition="none">Equilibrium</a>
+			<br><a href="#report-support" class="report-dash-link-support" data-role="button" data-transition="none">Support</a>
+			<br><a href="#report-lifestyle" class="report-dash-link-lifestyle" data-role="button" data-transition="none">Theraputic Lifestyle</a>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
@@ -441,6 +441,19 @@
 					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
 				</ul>
 			</div>
+		</div>
+	</div>
+	
+	<div id="intervention" data-role="page" data-dialog="true">
+	
+		<div data-role="header" data-theme="b">
+			<h1 id="value-delete-modal-header-text">Intervention</h1>
+		</div>
+
+		<div role="main" class="ui-content">
+			<span id="intervention-line-1"></span><br>
+			<span id="intervention-line-2"></span><br>
+			<a id="intervention-close-button" data-role="button">OK</a>
 		</div>
 	</div>
 	

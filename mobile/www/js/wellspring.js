@@ -1,5 +1,5 @@
-var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
-//var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
+//var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
+var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
 
 function wellspringReport(reportState) {
 	return {
@@ -168,7 +168,14 @@ function submitReport() {
 		method : "POST",
 		data: JSON.stringify(requestBody),
 		success : function(data, status, xhr) {
-			errorPopup("Success!");
+			var responseBody = JSON.parse(data);
+			if (responseBody.value && responseBody.value != "NONE") {
+				$("#intervention-line-1").html("You said you valued: " + responseBody.value);
+			}
+			if (responseBody.intervention) {
+				$("#intervention-line-2").html(responseBody.intervention);
+			}
+			$.mobile.navigate("#intervention");
 		},
 		error : function(arg0, arg1, arg2) {
 			errorPopup("Error submitting Value");
@@ -233,10 +240,10 @@ function drawHomeScreenWidget() {
 	var radius = ((height + width) / 4) * 0.85
 	
 	var canvas = new Raphael("home-dash-pie", height, width);
-	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "red"}, "Values", {});
-	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "green"}, "Lifestyle", {});
-	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "blue"}, "Support", {});
-	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "orange"}, "Equilibrium", {});
+	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "#FFFF83"}, "Values", {});
+	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "#75FF75"}, "Lifestyle", {});
+	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "#DA91FF"}, "Support", {});
+	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "#5CD6FF"}, "Equilibrium", {});
 }
 
 
@@ -546,16 +553,17 @@ function wellspringStatsGraph(divId, width, height, labels, points) {
         canvas.text(x, functionalHeight + STATS_GRAPH_LABEL_OFFSET / 2, labels[i]["label"]);
     }
     
+    var statsPath = "M";
+    for (i = 0; i < points.length; i++) {
+         var x = points[i]["x"] * width;
+        var y = ((1 - points[i]["y"]) + 0.1) * functionalHeight; // The +0.1 is because the actual range of y is [0.2, 1]
+        canvas.ellipse(x, y, 5, 5).attr('fill', 'black');
+        
+        statsPath += x.toString() + "," + y.toString()
+        + ((i < points.length - 1) ? "L" : "");
+        
+    }
     if (points.length > 1) {
-        var statsPath = "M";
-        for (i = 0; i < points.length; i++) {
-             var x = points[i]["x"] * width;
-            var y = ((1 - points[i]["y"]) + 0.1) * functionalHeight; // The +0.1 is because the actual range of y is [0.2, 1]
-            statsPath += x.toString() + "," + y.toString()
-            + ((i < points.length - 1) ? "L" : "");
-            
-            canvas.ellipse(x, y, 5, 5).attr('fill', 'black');
-        }
         canvas.path(statsPath).attr({"stroke-width" : 2});
     }
     
@@ -783,6 +791,10 @@ function bindWellspringEvents() {
 	$('#value-delete-submit').on('tap', onValueDeleteSubmit);
 	$('#value-add-button').on('tap', onAddValueButtonTap);
 	
+	$("#intervention-close-button").on('tap', function() {
+		$("#intervention").dialog('close');
+	})
+	
 	$('.submit-report-button').each(function() {
 		$(this).on('tap', submitReport);
 	});
@@ -862,6 +874,12 @@ function overlayClear() {
 	// Clear the overlay from overlayShow()
 }
 
+function browserDebug() {
+	$('#error-popup').popup();
+	$('#intervention').dialog();
+	ReportState = newReportState();
+}
+
 var app = {
 	    // Application Constructor
 	    initialize: function() {
@@ -889,6 +907,7 @@ var app = {
 	    	$("#device-uuid").text(device.uuid);
 	        console.log('Received Event: ' + id);
 	    	$('#error-popup').popup();
+	    	$('#intervention').dialog();
 	        registerDevice();
 	    }
 };
