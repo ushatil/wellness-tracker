@@ -36,7 +36,7 @@
     DASHBOARD
      -->
 	<div id="dashboard" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Dashboard</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
@@ -69,13 +69,13 @@
 
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="ui-btn-active ui-state-persist">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-full-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -83,17 +83,32 @@
 	
 <!-- 	VALUES -->
 	<div id="values" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Values</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
 		
 			<ul id="value-list" data-bind="foreach: values" data-role="listview"> 
-				<li><p>#<span data-bind="text: name"></span></p>
-					<p><textarea data-bind="text: description" class="full-width" readonly></textarea></p>
-					<p><span data-bind="text: vestSubSection"></span></p>
-					<p><a data-bind="event: {tap : $parent.showValue}"  data-role="button">Edit</a></p>
-					<p><a data-bind="event: {tap : $parent.deleteValue}"  data-role="button">Delete</a></p>
+				<li class="value-list-item">
+					<table class="full-width">
+						<tr class="value-row">
+							<td class="value-wide-cell">
+								#<span data-bind="text: name"></span>
+							</td>
+							<td class="value-thin-cell">
+								<a data-bind="event: {tap : $parent.showValue}"  data-role="button" data-icon="gear" data-iconpos="notext"></a>
+							</td>
+						</tr>
+						<tr class="value-row">
+							<td class="value-wide-cell">
+								<textarea data-bind="text: description" class="full-width" readonly></textarea><br>
+								<span data-bind="text: vestSubSection"></span>
+							</td>
+							<td class="value-thin-cell">
+								<a data-bind="event: {tap : $parent.deleteValue}"  data-role="button" data-icon="delete" data-iconpos="notext"></a>
+							</td>
+						</tr>
+					</table>
 				</li> 
 			</ul> 
 			<br>
@@ -101,13 +116,13 @@
 			
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="ui-btn-active ui-state-persist">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-full-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -174,7 +189,7 @@
     STATS
      -->
    	<div id="statistics" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Statistics</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content" id="stats-page-content">
@@ -189,13 +204,13 @@
 			<br><div id="lifestyle-stats" class="stats-graph"></div><br>
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="ui-btn-active ui-state-persist">Stats</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-full-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -206,7 +221,7 @@
     -->
     
     <div id="report-dashboard" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Wellness</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
@@ -238,18 +253,18 @@
 			<br><a href="#report-lifestyle" class="report-dash-link-lifestyle" data-role="button" data-transition="none">Theraputic Lifestyle</a>
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
 				</ul>
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -257,7 +272,7 @@
 	
 	    
     <div id="report-lifestyle" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Lifestyle</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
@@ -288,25 +303,25 @@
 			<p class="underneath-smiley"><span class="float-left">Unhealthy</span><span class="float-right">Healthy</span></p>
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Lifestyle</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
 				</ul>
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>    
 	
     <div id="report-support" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Support</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
@@ -337,25 +352,25 @@
 			<p class="underneath-smiley"><span class="float-left">Alone</span><span class="float-right">Connected</span></p>
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none">Equilibrium</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Support</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
 				</ul>
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>    
 	
     <div id="report-equilibrium" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Equilibrium</h1><progress class="progress-bar" max="100" value="0"></progress><a class="submit-report-button float-right" style="display: none;">Submit</a>
 		</div>
 		<div data-role="content">
@@ -386,18 +401,18 @@
 			<p class="underneath-smiley"><span class="float-left">Unbalanced</span><span class="float-right">Balanced</span></p>
 		</div>
 		
-		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none">Lifestyle</a></li>
-					<li><a href="#report-support" data-role="tab" data-icon="star" data-transition="none">Support</a></li>
-					<li><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist">Equilibrium</a></li>
+		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
+			<div data-role="navbar" class="wellspring-full-navbar">
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Equilibrium</a></li>
 				</ul>
-				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
-					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
-					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
-					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
+				<ul class="wellspring-half-navbar">
+					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
+					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
+					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
+					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -408,7 +423,7 @@
      -->
      
      <div id="debug-output" data-role="page">
-		<div data-role="header" data-id="wellspring-header" data-position="fixed">
+		<div data-role="header" data-id="wellspring-header" data-position="fixed" class="wellspring-header">
 			<h1>Settings</h1>
 		</div>
 		<div data-role="content">
@@ -435,7 +450,7 @@
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Dash</a></li>
+					<li><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none">Home</a></li>
 					<li><a href="#values" data-role="tab" data-icon="gear" data-transition="none">Values</a></li>
 					<li><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none">Report</a></li>
 					<li><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none">Stats</a></li>
@@ -447,13 +462,13 @@
 	<div id="intervention" data-role="page" data-dialog="true">
 	
 		<div data-role="header" data-theme="b">
-			<h1 id="value-delete-modal-header-text">Intervention</h1>
+			<h1>Intervention</h1>
 		</div>
 
-		<div role="main" class="ui-content">
+		<div data-role="main" class="ui-content">
 			<span id="intervention-line-1"></span><br>
 			<span id="intervention-line-2"></span><br>
-			<a id="intervention-close-button" data-role="button">OK</a>
+			<a data-rel="back" data-role="button">OK</a>
 		</div>
 	</div>
 	

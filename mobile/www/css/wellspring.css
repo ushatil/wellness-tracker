@@ -5,6 +5,10 @@
 	background: #FFFF83;
 }
 
+#value-list, .value-list-item {
+	background-color: #FFFF83 !important;
+}
+
 #report-equilibrium {
 	background: #5CD6FF;
 }
@@ -84,7 +88,7 @@
 }
 
 .full-width {
-	width: 100%;
+	width: 98%;
 }
 
 .subsection-label {
@@ -119,6 +123,47 @@
 	margin-right: 5%;
 	width: 20%;
 	border-radius: 5px;
+}
+
+.value-wide-cell {
+	width: 80%;
+}
+
+.value-thin-cell {
+	width: 20%;
+}
+
+.value-row {
+	width: 97%;
+	margin-right: 3%;
+}
+
+.wellspring-circle {
+	border-radius: 100% !important;
+}
+
+.wellspring-header {
+	height: 8%;
+}
+
+.wellspring-header h1 {
+	font-size: 250% !important;
+}
+
+.wellspring-single-footer {
+	height: 8%;
+}
+
+.wellspring-double-footer {
+	height: 16%;
+}
+
+.wellspring-full-navbar {
+	height: 100%;
+}
+
+.wellspring-half-navbar {
+	height: 50%;
 }
 
 /**

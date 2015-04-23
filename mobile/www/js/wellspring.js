@@ -1,5 +1,5 @@
-//var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
-var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
+var WELLSPRING_BASE_URL = "http://ec2-52-5-103-151.compute-1.amazonaws.com/wellspring/v1";
+//var WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
 
 function wellspringReport(reportState) {
 	return {
@@ -791,10 +791,6 @@ function bindWellspringEvents() {
 	$('#value-delete-submit').on('tap', onValueDeleteSubmit);
 	$('#value-add-button').on('tap', onAddValueButtonTap);
 	
-	$("#intervention-close-button").on('tap', function() {
-		$("#intervention").dialog('close');
-	})
-	
 	$('.submit-report-button').each(function() {
 		$(this).on('tap', submitReport);
 	});
@@ -876,7 +872,6 @@ function overlayClear() {
 
 function browserDebug() {
 	$('#error-popup').popup();
-	$('#intervention').dialog();
 	ReportState = newReportState();
 }
 
@@ -907,7 +902,6 @@ var app = {
 	    	$("#device-uuid").text(device.uuid);
 	        console.log('Received Event: ' + id);
 	    	$('#error-popup').popup();
-	    	$('#intervention').dialog();
 	        registerDevice();
 	    }
 };
