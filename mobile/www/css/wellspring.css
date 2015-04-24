@@ -156,6 +156,14 @@
 	height: 8%;
 }
 
+.wellspring-text {
+	font-size: 125%;
+}
+
+.wellspring-text-important {
+	font-size: 18px !important;
+}
+
 .wellspring-header h1 {
 	font-size: 250% !important;
 }

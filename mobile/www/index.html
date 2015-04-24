@@ -69,19 +69,18 @@
 
    				</fieldset>
 			</div>
-			<p class="underneath-smiley"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
+			<p class="underneath-smiley wellspring-text"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
 			<br>
-			<span id="ajax-test-output">No Callback</span>
 
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-full-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-full-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -104,7 +103,7 @@
 					<table class="full-width">
 						<tr class="value-row">
 							<td class="value-wide-cell">
-								#<span data-bind="text: name"></span>
+								#<span data-bind="text: name" class="wellspring-text"></span>
 							</td>
 							<td class="value-thin-cell">
 								<a data-bind="event: {tap : $parent.showValue}"  data-role="button" data-icon="gear" data-iconpos="notext"></a>
@@ -112,8 +111,8 @@
 						</tr>
 						<tr class="value-row">
 							<td class="value-wide-cell">
-								<textarea data-bind="text: description" class="full-width" readonly></textarea><br>
-								<span data-bind="text: vestSubSection"></span>
+								<textarea data-bind="text: description" class="full-width wellspring-text" readonly></textarea><br>
+								<span data-bind="text: vestSubSection" class="wellspring-text"></span>
 							</td>
 							<td class="value-thin-cell">
 								<a data-bind="event: {tap : $parent.deleteValue}"  data-role="button" data-icon="delete" data-iconpos="notext"></a>
@@ -128,12 +127,12 @@
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-full-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-full-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -145,11 +144,11 @@
 		</div>
 
 		<div role="main" class="ui-content">
-			<label for="value-add-name">Value Name</label>
-			<input id="value-add-name" name="value-add-name" type="text">
+			<label for="value-add-name" class="wellspring-text">Value Name</label>
+			<input id="value-add-name" name="value-add-name" type="text" class="wellspring-text">
 			
-			<label for="value-add-description">Value Description</label>
-			<textarea id="value-add-description" name="value-add-description" class="full-width"></textarea>
+			<label for="value-add-description" class="wellspring-text">Value Description</label>
+			<textarea id="value-add-description" name="value-add-description" class="full-width wellspring-text"></textarea>
 			
 			
 			<label for="value-add-subsection">VEST Category</label>
@@ -185,7 +184,7 @@
 
 		<div role="main" class="ui-content">
 		
-			<p>Are you sure you want to delete value: #<span id="value-delete-name"></span>?</p>
+			<p class="wellspring-text">Are you sure you want to delete value: #<span id="value-delete-name"></span>?</p>
 			
 			<input id="value-delete-id" name="value-delete-id" type="hidden"></input>
 			
@@ -221,12 +220,12 @@
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-single-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-full-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Stats</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-full-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -268,24 +267,25 @@
 
    				</fieldset>
 			</div>
-			<p class="underneath-smiley"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
+			<p class="underneath-smiley wellspring-text"><span class="float-left">Unhappy</span><span class="float-right">Happy</span></p>
+			<br><br>
 			<br><a href="#report-equilibrium" class="report-dash-link-equilibrium" data-role="button" data-transition="none">Equilibrium</a>
 			<br><a href="#report-support" class="report-dash-link-support" data-role="button" data-transition="none">Support</a>
 			<br><a href="#report-lifestyle" class="report-dash-link-lifestyle" data-role="button" data-transition="none">Theraputic Lifestyle</a>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Lifestyle</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Support</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Equilibrium</a></li>
 				</ul>
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -302,9 +302,9 @@
 				</tr>
 			</table>		</div>
 		<div data-role="content">
-			<p><span class="subsection-label float-left">Diet</span><span class="subsection-label float-right">Exercise</span></p>
+			<p><span class="wellspring-text float-left">Diet</span><span class="wellspring-text float-right">Exercise</span></p>
 			<br><div id="lifestyle-sliders" class="sliders"></div>
-			<p><span class="subsection-label float-left">Meditation</span><span class="subsection-label float-right">Recreation</span></p>
+			<p><span class="wellspring-text float-left">Meditation</span><span class="wellspring-text float-right">Recreation</span></p>
 			<br><h3>How healthy you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="lifestyle-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
@@ -326,21 +326,21 @@
 
    				</fieldset>
 			</div>
-			<p class="underneath-smiley"><span class="float-left">Unhealthy</span><span class="float-right">Healthy</span></p>
+			<p class="underneath-smiley wellspring-text"><span class="float-left">Unhealthy</span><span class="float-right">Healthy</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Lifestyle</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Lifestyle</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Support</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Equilibrium</a></li>
 				</ul>
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -356,9 +356,9 @@
 				</tr>
 			</table>		</div>
 		<div data-role="content">
-			<p><span class="subsection-label float-left">Friends</span><span class="subsection-label float-right">Family</span></p>
+			<p><span class="wellspring-text float-left">Friends</span><span class="wellspring-text float-right">Family</span></p>
 			<br><div id="support-sliders" class="sliders"></div>
-			<p><span class="subsection-label float-left">Colleagues</span><span class="subsection-label float-right">Professionals</span></p>
+			<p><span class="wellspring-text float-left">Colleagues</span><span class="wellspring-text float-right">Professionals</span></p>
 			<br><h3>How supported do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="support-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
@@ -380,21 +380,21 @@
 
    				</fieldset>
 			</div>
-			<p class="underneath-smiley"><span class="float-left">Alone</span><span class="float-right">Connected</span></p>
+			<p class="underneath-smiley wellspring-text"><span class="float-left">Alone</span><span class="float-right">Connected</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Support</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Equilibrium</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Lifestyle</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Support</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Equilibrium</a></li>
 				</ul>
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>
@@ -410,9 +410,9 @@
 				</tr>
 			</table>		</div>
 		<div data-role="content">
-			<p><span class="subsection-label float-left">School</span><span class="subsection-label float-right">Work</span></p>
+			<p><span class="wellspring-text float-left">School</span><span class="wellspring-text float-right">Work</span></p>
 			<br><div id="equilibrium-sliders" class="sliders"></div>
-			<p><span class="subsection-label float-left">Self</span><span class="subsection-label float-right">Home</span></p>
+			<p><span class="wellspring-text float-left">Self</span><span class="wellspring-text float-right">Home</span></p>
 			<br><h3>How balanced do you feel today?</h3>
 			<div data-role="fieldcontain" class="smiley-container">
     			<fieldset id="equilibrium-overall-group" data-type="horizontal" data-role="controlgroup" class="full-width">
@@ -434,21 +434,21 @@
 
    				</fieldset>
 			</div>
-			<p class="underneath-smiley"><span class="float-left">Unbalanced</span><span class="float-right">Balanced</span></p>
+			<p class="underneath-smiley wellspring-text"><span class="float-left">Unbalanced</span><span class="float-right">Balanced</span></p>
 		</div>
 		
 		<div data-role="footer" data-id="wellspring-navbar" data-position="fixed" class="wellspring-double-footer">
-			<div data-role="navbar" class="wellspring-full-navbar">
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Lifestyle</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar">Support</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Equilibrium</a></li>
+			<div data-role="navbar" class="wellspring-full-navbar wellspring-text">
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-lifestyle" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Lifestyle</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-support" data-role="tab" data-icon="star" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Support</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-equilibrium" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Equilibrium</a></li>
 				</ul>
-				<ul class="wellspring-half-navbar">
-					<li class="wellspring-full-navbar"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar">Home</a></li>
-					<li class="wellspring-full-navbar"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar">Values</a></li>
-					<li class="wellspring-full-navbar"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar">Report</a></li>
-					<li class="wellspring-full-navbar"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar">Stats</a></li>
+				<ul class="wellspring-half-navbar wellspring-text">
+					<li class="wellspring-full-navbar wellspring-text"><a href="#dashboard" data-role="tab" data-icon="home" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Home</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#values" data-role="tab" data-icon="gear" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Values</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#report-dashboard" data-role="tab" data-icon="star" data-transition="none" class="ui-btn-active ui-state-persist wellspring-full-navbar wellspring-text-important">Report</a></li>
+					<li class="wellspring-full-navbar wellspring-text"><a href="#statistics" data-role="tab" data-icon="grid" data-transition="none" class="wellspring-full-navbar wellspring-text-important">Stats</a></li>
 				</ul>
 			</div>
 		</div>

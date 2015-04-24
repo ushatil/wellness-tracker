@@ -173,7 +173,7 @@ function submitReport() {
 		success : function(data, status, xhr) {
 			var responseBody = JSON.parse(data);
 			if (responseBody.subsection && responseBody.value && responseBody.value != "NONE") {
-				$("#intervention-line-1").html("You said you valued, " + responseBody.value + 
+				$("#intervention-line-1").html("You said you valued " + responseBody.value.toString().toReadableCase() + 
 						", but you scored low in " + responseBody.subsection.toString().toReadableCase() + ".");
 			} else if (responseBody.subsection) {
 				$("#intervention-line-1").html("You scored low in " + responseBody.subsection.toString().toReadableCase() + ".");
@@ -854,10 +854,10 @@ function registerDevice() {
 		headers : {Device: device.uuid},
 		method : "POST",
 		success : function(response) {
-			$("#ajax-test-output").text("AJAX Success");
+			//$("#ajax-test-output").text("AJAX Success");
 		},
 		error : function(arg0, arg1, arg2) {
-			$("#ajax-test-output").text("AJAX Failed");
+			//$("#ajax-test-output").text("AJAX Failed");
 		}
 	});
 }
