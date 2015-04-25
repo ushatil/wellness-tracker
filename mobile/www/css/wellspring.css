@@ -2,35 +2,35 @@
 
 
 #values, #value-add, #value-delete {
-	background: #FFFF83;
+	background: #FFFFCD;
 }
 
 #value-list, .value-list-item {
-	background-color: #FFFF83 !important;
+	background-color: #FFFFCD !important;
 }
 
 #report-equilibrium {
-	background: #5CD6FF;
+	background: #BEEFFF;
 }
 
 .report-dash-link-equilibrium {
-	background: #5CD6FF !important;
+	background: #BEEFFF !important;
 }
 
 #report-support {
-	background: #DA91FF;
+	background: #F0D3FF;
 }
 
 .report-dash-link-support {
-	background: #DA91FF !important;
+	background: #F0D3FF !important;
 }
 
 #report-lifestyle {
-	background: #75FF75;
+	background: #C8FFC8;
 }
 
 .report-dash-link-lifestyle {
-	background: #75FF75 !important;
+	background: #C8FFC8 !important;
 }
 
 .in, .out {
@@ -42,13 +42,15 @@
     width: 90%;
     margin-right: 5%;
     margin-left: 5%;
+    margin-top: 3%;
+    margin-bottom: 3%;
     border: 1px solid black;
     border-radius: 15px;
     
-    background: -webkit-radial-gradient(circle, red, lime);
-	background: -o-radial-gradient(circle, red, lime);
-	background: -moz-radial-gradient(circle, red, lime);
-	background: radial-gradient(circle, red, lime);
+    background: -webkit-radial-gradient(circle, red, yellow, lime);
+	background: -o-radial-gradient(circle, red, yellow, lime);
+	background: -moz-radial-gradient(circle, red, yellow, lime);
+	background: radial-gradient(circle, red , yellow, lime);
 }
 
 #home-dash-pie {
@@ -62,6 +64,13 @@
 	height: 200px; /**TODO: un-hardcode height**/
     margin-right: 5%;
     margin-left: 5%;
+}
+
+.statistics-header {
+	width: 100%;
+	text-align: center;
+	font-size: 150%;
+	font-weight: bold;
 }
 
 .smiley-container {
@@ -160,12 +169,24 @@
 	font-size: 125%;
 }
 
+.intervention-text {
+	front-size: 140%;
+}
+
 .wellspring-text-important {
 	font-size: 18px !important;
 }
 
 .wellspring-header h1 {
 	font-size: 250% !important;
+}
+
+.intervention-header h1 {
+	font-size: 200% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	width: 100%;
+	text-align: center !important;
 }
 
 .wellspring-single-footer {

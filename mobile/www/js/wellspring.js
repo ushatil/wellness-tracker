@@ -4,6 +4,13 @@ String.prototype.toReadableCase = function() {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
+var DEVICE_UUID=""
+
+var VALUE_COLOR = "#FFFFCD";
+var EQUILIBRIUM_COLOR = "#BEEFFF";
+var SUPPORT_COLOR = "#F0D3FF";
+var LIFESTYLE_COLOR = "#C8FFC8";
+
 function wellspringReport(reportState) {
 	return {
 		type: "WellspringReport",
@@ -167,7 +174,7 @@ function submitReport() {
 	
 	$.ajax({
 		url : WELLSPRING_BASE_URL + "/report",
-		headers : {Device: device.uuid},
+		headers : {Device: DEVICE_UUID},
 		method : "POST",
 		data: JSON.stringify(requestBody),
 		success : function(data, status, xhr) {
@@ -255,10 +262,10 @@ function drawHomeScreenWidget() {
 	var textParams = {"font-size" : "24px"};
 	
 	var canvas = new Raphael("home-dash-pie", height, width);
-	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : "#FFFF83"}, "Values", textParams);
-	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : "#75FF75"}, "Lifestyle", textParams);
-	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : "#DA91FF"}, "Support", textParams);
-	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : "#5CD6FF"}, "Equilibrium", textParams);
+	homeDashSector(canvas, "#values", centerX, centerY, radius, 45, 135, {"fill" : VALUE_COLOR}, "Values", textParams);
+	homeDashSector(canvas, "#report-lifestyle", centerX, centerY, radius, 135, 225, {"fill" : LIFESTYLE_COLOR}, "Lifestyle", textParams);
+	homeDashSector(canvas, "#report-support", centerX, centerY, radius, 225, 315, {"fill" : SUPPORT_COLOR}, "Support", textParams);
+	homeDashSector(canvas, "#report-equilibrium", centerX, centerY, radius, 315, 405, {"fill" : EQUILIBRIUM_COLOR}, "Equilibrium", textParams);
 }
 
 
@@ -272,6 +279,27 @@ function drawHomeScreenWidget() {
  * BEGIN RAPHAEL SCRIPT FOR SLIDERS
  * 
  */
+
+var redYellowRainbow = new Rainbow();
+var yellowGreenRainbow = new Rainbow();
+
+redYellowRainbow.setNumberRange(0, 50);
+redYellowRainbow.setSpectrum('red', 'yellow');
+
+yellowGreenRainbow.setNumberRange(50, 100);
+yellowGreenRainbow.setSpectrum('yellow', 'lime');
+
+var gradientLookup = [];
+
+for (var i = 0; i <= 100; i++) {
+	var color;
+    if (i < 50) {
+    	color = "#" + redYellowRainbow.colourAt(i);
+    } else {
+    	color = "#" + yellowGreenRainbow.colourAt(i);
+    }
+    gradientLookup.push(color);
+}
 
 function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, callback, radius){
     /**
@@ -290,14 +318,16 @@ function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, ca
     var startingY = (insideY - outsideY) / 2 + outsideY - radius;
     
     var knob = canvas.ellipse( startingX, startingY, 2 * radius, 2 * radius )
-                   .attr( 'fill', 'red' )
+                   .attr( 'fill', 'white' )
                    .attr( 'stroke', 'rgba(80,80,80,0.5)' );
+    
+    var text = canvas.text(startingX, startingY/2, "");
+    text.attr('font-size', '18px');
 
     var result = {
         x : startingX,
         y : startingY,
         onDragStart : function(x, y, event) {
-            knob.animate(params = {"fill" : "lime"});
             result.onMove(x, y, x, y, event);
         },
 
@@ -319,8 +349,14 @@ function drawSlider(canvas, outsideX, outsideY, insideX, insideY, descriptor, ca
             }
             result.x = newX - radius;
             result.y = newY - radius;
-            ReportState[descriptor[0]] = 100 * ( 1 - ((newX - outsideX) / (insideX - outsideX)));
-            knob.animate(params = {"cx" : newX - radius, "cy" : newY - radius});
+            var rating = 100 * ( 1 - ((newX - outsideX) / (insideX - outsideX)));
+            ReportState[descriptor[0]] = rating;
+            
+            var newColor = gradientLookup[Math.floor(rating)];
+            
+            knob.animate(params = {"cx" : result.x, "cy" : result.y, "fill" : newColor});
+            text.animate(params = {'x' : result.x, 'y' : result.y});
+            text.attr('text', rating.toFixed(1) + "%")
             callback();
         }
     }
@@ -363,7 +399,7 @@ function fourSliders(divId, topLeftDescriptor, topRightDescriptor, bottomLeftDes
     var canvas = Raphael(container = divId, height=height, width=width);
     var midpointX = width / 2;
     var midpointY = height / 2;
-    var radius = 60;
+    var radius = 45;
     
     var topLeft;
     var topRight;
@@ -430,7 +466,7 @@ function onValueAddShow() {
 function refreshValues() {
 	$.ajax({
 		url : WELLSPRING_BASE_URL + "/value",
-		headers : {Device: device.uuid},
+		headers : {Device: DEVICE_UUID},
 		method : "GET",
 		success : function(data, status, xhr) {
 			var responseBody = JSON.parse(data);
@@ -477,7 +513,7 @@ function onValueAddSubmit() {
 		
 		$.ajax({
 			url : WELLSPRING_BASE_URL + "/value",
-			headers : {Device: device.uuid},
+			headers : {Device: DEVICE_UUID},
 			method : "POST",
 			data: JSON.stringify(value),
 			success : function(data, status, xhr) {
@@ -496,7 +532,7 @@ function onValueAddSubmit() {
 		
 		$.ajax({
 			url : WELLSPRING_BASE_URL + "/value/" + encodeURIComponent(id.toString()),
-			headers : {Device: device.uuid},
+			headers : {Device: DEVICE_UUID},
 			method : "PUT",
 			data: JSON.stringify(value),
 			success : function(data, status, xhr) {
@@ -515,7 +551,7 @@ function onValueDeleteSubmit() {
 	var id = $('#value-delete-id').val();
 	$.ajax({
 		url : WELLSPRING_BASE_URL + "/value/" + encodeURIComponent(id.toString()),
-		headers : {Device: device.uuid},
+		headers : {Device: DEVICE_UUID},
 		method : "DELETE",
 		success : function(data, status, xhr) {
 			refreshValues();
@@ -551,13 +587,13 @@ function onAddValueButtonTap() {
 
 var STATS_GRAPH_LABEL_OFFSET = 30;
 
-function wellspringStatsGraph(divId, width, height, labels, points) {
+function wellspringStatsGraph(divId, color, width, height, labels, points) {
     var canvas = Raphael(container = divId, width=width, height=height);
     var functionalHeight = height - STATS_GRAPH_LABEL_OFFSET;
     
     // TODO: Change grey fill
     canvas.rect(0, 0, width, functionalHeight)
-    .attr({"fill" : "grey"});
+    .attr({"fill" : color});
        points = quickSortByX(points);
     
     for (i = 0; i < labels.length; i++) {
@@ -629,10 +665,10 @@ function drawStatistics(pointsLookup, labels) {
       ];**/
   
   //TODO: Height is hard-coded as 200. Un-hard-code
-  	canvases.push(wellspringStatsGraph("mood-stats", $("#mood-stats").width(), 200, labels, pointsLookup["MOOD"]));
-  	canvases.push(wellspringStatsGraph("equilibrium-stats", $("#equilibrium-stats").width(), 200, labels, pointsLookup["EQUILIBRIUM"]));
-  	canvases.push(wellspringStatsGraph("support-stats", $("#support-stats").width(), 200, labels, pointsLookup["SUPPORT"]));
-  	canvases.push(wellspringStatsGraph("lifestyle-stats", $("#lifestyle-stats").width(), 200, labels, pointsLookup["LIFESTYLE"]));
+  	canvases.push(wellspringStatsGraph("mood-stats", "grey", $("#mood-stats").width(), 200, labels, pointsLookup["MOOD"]));
+  	canvases.push(wellspringStatsGraph("equilibrium-stats", EQUILIBRIUM_COLOR, $("#equilibrium-stats").width(), 200, labels, pointsLookup["EQUILIBRIUM"]));
+  	canvases.push(wellspringStatsGraph("support-stats", SUPPORT_COLOR, $("#support-stats").width(), 200, labels, pointsLookup["SUPPORT"]));
+  	canvases.push(wellspringStatsGraph("lifestyle-stats", LIFESTYLE_COLOR, $("#lifestyle-stats").width(), 200, labels, pointsLookup["LIFESTYLE"]));
 }
 
 var weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -648,7 +684,7 @@ function onStatisticsShow() {
 	
 	$.ajax({
 		url : WELLSPRING_BASE_URL + "/stats/7",
-		headers : {Device: device.uuid},
+		headers : {Device: DEVICE_UUID},
 		method : "GET",
 		success : function(data, status, xhr) {
 			var labels = [];
@@ -851,7 +887,7 @@ function bindWellspringEvents() {
 function registerDevice() {
 	$.ajax({
 		url : WELLSPRING_BASE_URL + "/register",
-		headers : {Device: device.uuid},
+		headers : {Device: DEVICE_UUID},
 		method : "POST",
 		success : function(response) {
 			//$("#ajax-test-output").text("AJAX Success");
@@ -887,6 +923,7 @@ function overlayClear() {
 
 function browserDebug() {
 	WELLSPRING_BASE_URL = "http://localhost/django/wellspring/v1";
+	DEVICE_UUID = "Browser";
 	$('#error-popup').popup();
 	ReportState = newReportState();
 }
@@ -914,8 +951,9 @@ var app = {
 	    // Update DOM on a Received Event
 	    receivedEvent: function(id) {
 	    	ReportState = newReportState();
+	    	DEVICE_UUID = device.uuid;
 	    	$.mobile.navigate("#dashboard");
-	    	$("#device-uuid").text(device.uuid);
+	    	$("#DEVICE_UUID").text(DEVICE_UUID);
 	        console.log('Received Event: ' + id);
 	    	$('#error-popup').popup();
 	        registerDevice();
