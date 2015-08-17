@@ -1,0 +1,89 @@
+{
+	"AWSTemplateFormatVersion" : "2010-09-09",
+	"Description" : "Spins up a VPC with two Subnets (both have routes to the internet), and a security group with SSH and HTTP ingresses",
+	"Parameters" : {
+		"PrefixString": {
+			"Type": "String",
+			"MaxLength": "14",
+			"MinLength": "5",
+			"Description": "Enter an alphanumeric string, between 5 and 14 characters in length",
+			"ConstraintDescription": "must have between 5 and 14 characters"
+		},
+		"SubnetA" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region."
+		},
+		"SubnetB" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region."
+		},
+		"InstanceKeyName": {
+			"Type": "AWS::EC2::KeyPair::KeyName",
+			"Description": "Key pair name to use for instances."
+		},
+		"EC2InstanceType": {
+			"Type": "String",
+			"Description": "Valid AWS Instance Type. Examples: t2.medium, m3.large, etc"
+		},
+		"IamInstanceProfile": {
+			"Type": "String",
+			"MaxLength": "15",
+			"MinLength": "5",
+			"Description": "IAM Instance Profile. Must have access to S3",
+			"ConstraintDescription": "IAM Instance Profile"
+		},
+		"ScriptS3BucketName": {
+			"Type": "String",
+			"Description": "S3 Bucket containing UserData script for this instance to run"
+		},
+		"ScriptS3BucketRegion": {
+			"Type": "String",
+			"Default": "us-east-1",
+			"Description": "Region of the S3 Bucket containing UserData script. As of April 2015, the built-in version of AWS CLI does not support eu-central-1"
+		},
+		"ScriptName": {
+			"Type": "String",
+			"Description": "Filename of the startup script. Do not nest within an S3 folder!"
+		}
+	},
+	"Mappings" : {
+		"RegionMap" : {
+			"ap-northeast-1" : {
+				"AMI" : "ami-35072834"
+			},
+			"ap-southeast-1" : {
+				"AMI" : "ami-d6e1c584"
+			},
+			"ap-southeast-2" : {
+				"AMI" : "ami-fd4724c7"
+			},
+			"eu-central-1" : {
+				"AMI" : "ami-404a7c5d"
+			},
+			"eu-west-1" : {
+				"AMI" : "ami-748e2903"
+			},
+			"sa-east-1" : {
+				"AMI" : "ami-956cc688"
+			},
+			"us-east-1" : {
+				"AMI" : "ami-08842d60"
+			},
+			"us-west-1" : {
+				"AMI" : "ami-cfa8a18a"
+			},
+			"us-west-2" : {
+				"AMI" : "ami-08842d60"
+			}
+ 		}
+	},
+	"Conditions" : {
+		
+	},
+	"Resources" : {
+		
+	},
+	"Outputs" : {
+		
+	}
+}

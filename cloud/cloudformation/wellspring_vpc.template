@@ -1,0 +1,261 @@
+{
+	"AWSTemplateFormatVersion" : "2010-09-09",
+	"Description" : "Spins up a VPC with two Subnets (both have routes to the internet), and a security group with SSH and HTTP ingresses",
+	"Parameters" : {
+		"PrefixString": {
+			"Type": "String",
+			"MaxLength": "14",
+			"MinLength": "5",
+			"Description": "Enter an alphanumeric string, between 5 and 14 characters in length",
+			"ConstraintDescription": "must have between 5 and 14 characters"
+		},
+		"DHCPOptionsID": {
+			"Type" : "String",
+			"Description" : "ID referencing Instance DHCP Options."
+		},
+		"EC2AvailabilityZoneA" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region.",
+			"AllowedValues": ["a", "b", "c", "d", "e"],
+			"ConstraintDescription" : "Must be one of: [a, b, c, d, e]"
+		},
+		"EC2AvailabilityZoneB" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region.",
+			"AllowedValues": ["a", "b", "c", "d", "e"],
+			"ConstraintDescription" : "Must be one of: [a, b, c, d, e]"
+		}
+	},
+	"Mappings" : {
+		"RegionMap" : {
+			"ap-northeast-1" : {
+				"AMI" : "ami-35072834"
+			},
+			"ap-southeast-1" : {
+				"AMI" : "ami-d6e1c584"
+			},
+			"ap-southeast-2" : {
+				"AMI" : "ami-fd4724c7"
+			},
+			"eu-central-1" : {
+				"AMI" : "ami-404a7c5d"
+			},
+			"eu-west-1" : {
+				"AMI" : "ami-748e2903"
+			},
+			"sa-east-1" : {
+				"AMI" : "ami-956cc688"
+			},
+			"us-east-1" : {
+				"AMI" : "ami-08842d60"
+			},
+			"us-west-1" : {
+				"AMI" : "ami-cfa8a18a"
+			},
+			"us-west-2" : {
+				"AMI" : "ami-08842d60"
+			}
+ 		}
+	},
+	"Conditions" : {
+		
+	},
+	"Resources" : {
+		"vpc": {
+	      "Type": "AWS::EC2::VPC",
+	      "Properties": {
+	        "CidrBlock": "10.0.0.0/16",
+	        "InstanceTenancy": "default",
+	        "EnableDnsSupport": "true",
+	        "EnableDnsHostnames": "true",
+	        "Tags": [
+	          {
+	            "Key": "Name",
+	            "Value":  {"Fn::Join" : ["",[ { "Ref": "PrefixString" } , " VPC"]]}
+	          }
+	        ]
+	      }
+	    },
+	    "subnetA": {
+	      "Type": "AWS::EC2::Subnet",
+	      "Properties": {
+	        "CidrBlock": {"Fn::Join" : ["", ["10.0.3.0/24"]]},
+	        "AvailabilityZone": {"Fn::Join" : ["",[ { "Ref": "AWS::Region" }, {"Ref" : "EC2AvailabilityZoneA"}]]},
+	        "VpcId": {"Ref" : "vpc"},
+	        "Tags": [
+	          {
+	            "Key": "Name",
+	            "Value":  {"Fn::Join" : ["",[ { "Ref": "PrefixString" }, " Subnet A"]]}
+	          }
+	        ]
+	      }
+	    },
+	    "subnetB": {
+	      "Type": "AWS::EC2::Subnet",
+	      "Properties": {
+	        "CidrBlock": {"Fn::Join" : ["", ["10.0.5.0/24"]]},
+	        "AvailabilityZone": {"Fn::Join" : ["",[ { "Ref": "AWS::Region" }, {"Ref" : "EC2AvailabilityZoneB"}]]},
+	        "VpcId": {"Ref" : "vpc"},
+	        "Tags": [
+	          {
+	            "Key": "Name",
+	            "Value":  {"Fn::Join" : ["",[ { "Ref": "PrefixString" }, " Subnet B"]]}
+	          }
+	        ]
+	      }
+	    },
+	    "gateway": {
+	      "Type": "AWS::EC2::InternetGateway",
+	      "Properties": {
+	      }
+	    },
+	    "gatewayvpcattachment": {
+	      "Type": "AWS::EC2::VPCGatewayAttachment",
+	      "Properties": {
+	        "VpcId": {"Ref" : "vpc"},
+	        "InternetGatewayId": {
+	          "Ref": "gateway"
+	        }
+	      }
+	    },
+	    "dhcpoptions": {
+	      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+	      "Properties": {
+	        "VpcId": {"Ref": "vpc"},
+	        "DhcpOptionsId": {"Ref" : "DHCPOptionsID"}
+	      }
+	    },
+	     "routetable": {
+	      "Type": "AWS::EC2::RouteTable",
+	      "Properties": {
+	        "VpcId": {"Ref" : "vpc"},
+	        "Tags": [
+	          {
+	            "Key": "Name",
+	            "Value":  {"Fn::Join" : ["",[ { "Ref": "PrefixString" }, " Route Table"]]}
+	          }
+	        ]
+	      }
+	    },
+	    "publicroute": {
+	      "Type": "AWS::EC2::Route",
+	      "Properties": {
+	        "DestinationCidrBlock": "0.0.0.0/0",
+	        "RouteTableId": {"Ref" : "routetable"},
+	        "GatewayId": {"Ref": "gateway"}
+	      }
+	    },
+	    "subnetrouteassocationA": {
+	      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+	      "Properties": {
+	        "RouteTableId": {"Ref": "routetable"},
+	        "SubnetId": {"Ref": "subnetA"}
+	      }
+	    },
+	    "subnetrouteassocationB": {
+	      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+	      "Properties": {
+	        "RouteTableId": {"Ref": "routetable"},
+	        "SubnetId": {"Ref": "subnetB"}
+	      }
+	    },
+	    "networkacl": {
+	      "Type": "AWS::EC2::NetworkAcl",
+	      "Properties": {
+	        "VpcId": {"Ref": "vpc"}
+	      }
+	    },
+	     "aclentryout": {
+	      "Type": "AWS::EC2::NetworkAclEntry",
+	      "Properties": {
+	        "CidrBlock": "0.0.0.0/0",
+	        "Egress": true,
+	        "Protocol": "-1",
+	        "RuleAction": "allow",
+	        "RuleNumber": "100",
+	        "NetworkAclId": {"Ref" : "networkacl"}
+	      }
+	    },
+	    "aclentryin": {
+	      "Type": "AWS::EC2::NetworkAclEntry",
+	      "Properties": {
+	        "CidrBlock": "0.0.0.0/0",
+	        "Protocol": "-1",
+	        "RuleAction": "allow",
+	        "RuleNumber": "100",
+	        "NetworkAclId": {"Ref" : "networkacl"}
+	      }
+	    },
+	    "subnetaclassocationA": {
+	      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+	      "Properties": {
+	        "NetworkAclId": {"Ref": "networkacl"},
+	        "SubnetId": {"Ref": "subnetA"}
+	      }
+	    },
+	    "subnetaclassocationB": {
+	      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+	      "Properties": {
+	        "NetworkAclId": {"Ref": "networkacl"},
+	        "SubnetId": {"Ref": "subnetB"}
+	      }
+	    },
+	    "securitygroup": {
+	      "Type": "AWS::EC2::SecurityGroup",
+	      "Properties": {
+	        "GroupDescription": {"Fn::Join" : ["",[ { "Ref": "PrefixString" }, " security group"]]},
+	        "VpcId": {"Ref": "vpc"},
+	        "SecurityGroupIngress": [
+					{
+					    "IpProtocol": "tcp",
+					    "FromPort": "22",
+					    "ToPort": "22",
+					    "CidrIp": "0.0.0.0/0"
+					},
+					{
+					    "IpProtocol": "tcp",
+					    "FromPort": "80",
+					    "ToPort": "80",
+					    "CidrIp": "0.0.0.0/0"
+					},
+					{
+					    "IpProtocol": "tcp",
+					    "FromPort": "3306",
+					    "ToPort": "3306",
+					    "CidrIp": "10.0.0.0/16"
+					}
+             ],
+	        "SecurityGroupEgress": [
+	          {
+	            "IpProtocol": "-1",
+	            "CidrIp": "0.0.0.0/0"
+	          }
+	        ],
+	        "Tags": [
+   	          {
+   	            "Key": "Name",
+   	            "Value":  {"Fn::Join" : ["",[ { "Ref": "PrefixString" }, " Security Group"]]}
+   	          }
+   	        ]
+	      }
+	    }
+	},
+	"Outputs" : {
+		"vpc" : {
+			"Description" : "VPC",
+			"Value" : {"Ref" : "vpc"}
+		},
+		"subnetA" : {
+			"Description" : "Subnet A",
+			"Value" : {"Ref" : "subnetA"}
+		},
+		"subnetB" : {
+			"Description" : "Subnet B",
+			"Value" : {"Ref" : "subnetB"}
+		},
+		"securitygroup" : {
+			"Description" : "This SG has ingresses on 80 and 22 to the internet, ingress on 3306 from VPC, and egress on *",
+			"Value" : {"Ref" : "securitygroup"}
+		}
+	}
+}

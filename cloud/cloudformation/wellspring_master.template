@@ -1,0 +1,69 @@
+{
+	"AWSTemplateFormatVersion" : "2010-09-09",
+	"Description" : "Spins up 3 stacks: 1 for VPC/Subnets/etc, 1 for ASG/ELB/LC, 1 for RDS",
+	"Parameters" : {
+		"PrefixString": {
+			"Type": "String",
+			"MaxLength": "14",
+			"MinLength": "5",
+			"Description": "Enter an alphanumeric string, between 5 and 14 characters in length",
+			"ConstraintDescription": "must have between 5 and 14 characters"
+		},
+		"InstanceKeyName": {
+			"Type": "AWS::EC2::KeyPair::KeyName",
+			"Description": "Key pair name to use for instances."
+		},
+		"EC2InstanceType": {
+			"Type": "String",
+			"Description": "Valid AWS Instance Type. Examples: t2.medium, m3.large, etc"
+		},
+		"IamInstanceProfile": {
+			"Type": "String",
+			"MaxLength": "15",
+			"MinLength": "5",
+			"Description": "IAM Instance Profile. Must have access to S3",
+			"ConstraintDescription": "IAM Instance Profile"
+		},
+		"ScriptS3BucketName": {
+			"Type": "String",
+			"Description": "S3 Bucket containing UserData script for this instance to run"
+		},
+		"ScriptS3BucketRegion": {
+			"Type": "String",
+			"Default": "us-east-1",
+			"Description": "Region of the S3 Bucket containing UserData script. As of April 2015, the built-in version of AWS CLI does not support eu-central-1"
+		},
+		"ScriptName": {
+			"Type": "String",
+			"Description": "Filename of the startup script. Do not nest within an S3 folder!"
+		},
+		"DHCPOptionsID": {
+			"Type" : "String",
+			"Description" : "ID referencing Instance DHCP Options."
+		},
+		"EC2AvailabilityZoneA" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region.",
+			"AllowedValues": ["a", "b", "c", "d", "e"],
+			"ConstraintDescription" : "Must be one of: [a, b, c, d, e]"
+		},
+		"EC2AvailabilityZoneB" : {
+			"Type": "String",
+			"Description": "AZ to use inside your region.",
+			"AllowedValues": ["a", "b", "c", "d", "e"],
+			"ConstraintDescription" : "Must be one of: [a, b, c, d, e]"
+		}
+	},
+	"Mappings" : {
+		
+	},
+	"Conditions" : {
+		
+	},
+	"Resources" : {
+		
+	},
+	"Outputs" : {
+		
+	}
+	}
